@@ -7,6 +7,7 @@ import PrivateRoute from './component/PrivateRoute'
 import Episode from './pages/Episode'
 import Item from './pages/Item'
 import Category from './pages/Category'
+import Public from './pages/Public'
 
 //import store
 import store from './redux/store'
@@ -43,6 +44,7 @@ export default class App extends Component {
             <Route path='/episode' render={() => <Episode />} />
             <Route path='/item' render={() => <Item />} />
             <Route path='/category' render={() => <Category />} />
+            <Route path='/public' render={() => <Public />} />
           </Switch>
         </BrowserRouter>
       </Provider>

@@ -1,5 +1,5 @@
 const initialState = {
-    data: [],
+    dataItem: [],
     isLoading: '',
     isError: '',
     alertMsg: ''
@@ -7,13 +7,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_DATA_PENDING': {
+        case 'GET_DATA_ITEM_PENDING': {
             return {
                 ...state,
                 isLoading: true
             }
         }
-        case 'GET_DATA_REJECTED': {
+        case 'GET_DATA_ITEM_REJECTED': {
             return {
                 ...state,
                 isLoading: false,
@@ -21,11 +21,11 @@ export default (state = initialState, action) => {
                 alertMsg: 'There is fail to request data'
             }
         }
-        case 'GET_DATA_FULFILLED': {
+        case 'GET_DATA_ITEM_FULFILLED': {
             return {
                 ...state,
                 isLoading: false,
-                data: action.payload.data.result
+                dataItem: action.payload.data.result
             }
         }
         default: {

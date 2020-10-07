@@ -2,24 +2,43 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import itemActions from '../redux/actions/item'
+import categoryActions from '../redux/actions/category'
+
 import {
     Container, Row, Col,
     Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle,
     Button
 } from 'reactstrap'
 
-class Item extends Component {
+class Public extends Component {
 
     componentDidMount() {
         this.props.getItem()
+        this.props.getCategory()
     }
 
 
     render() {
         const { isLoading, dataItem, isError, alertMsg } = this.props.item
+        const { isLoadingCategory, dataCategory, isErrorCategory, alertMsgCategory } = this.props.category
         return (
             <Container>
-                <div></div>
+                <div className="mt-3">
+                    <h1>Category</h1>
+                    <Row className="mt-3">
+                        {!isLoadingCategory && !isErrorCategory && dataCategory.length !== 0 && dataCategory.map(i => (
+                            <Col md={3}>
+                                <Card className="shadow justify-content-between mt-3">
+                                    <CardImg src={i.picture} />
+                                    <CardBody>
+                                        <CardTitle className="font-weight-bold">{i.name_category}</CardTitle>
+                                    </CardBody>
+                                    <Button>Detail</Button>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                </div>
 
                 <div className="mt-3">
                     <h1>New</h1>
@@ -54,11 +73,13 @@ class Item extends Component {
 }
 
 const mapStateToProps = state => ({
-    item: state.item
+    item: state.item,
+    category: state.category
 })
 
 const mapDispatchToProps = {
-    getItem: itemActions.getData
+    getItem: itemActions.getData,
+    getCategory: categoryActions.getData
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Item)
+export default connect(mapStateToProps, mapDispatchToProps)(Public)
