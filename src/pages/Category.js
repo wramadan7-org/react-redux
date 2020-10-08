@@ -16,12 +16,12 @@ class Category extends Component {
 
 
     render() {
-        const { isLoading, data, isError, alertMsg } = this.props.category
+        const { isLoadingCategory, dataCategory, isErrorCategory, alertMsgCategory } = this.props.category
         return (
             <Container>
                 <h1>Category</h1>
                 <Row>
-                    {!isLoading && !isError && data.length !== 0 && data.map(o => (
+                    {!isLoadingCategory && !isErrorCategory && dataCategory.length !== 0 && dataCategory.map(o => (
                         <Col md={3}>
                             <Card className="shadow justify-content-between mt-3">
                                 <CardImg>{o.picture}</CardImg>
@@ -32,11 +32,11 @@ class Category extends Component {
                             </Card>
                         </Col>
                     ))}
-                    {isLoading && !isError && (
+                    {isLoadingCategory && !isErrorCategory && (
                         <div>Loading</div>
                     )}
-                    {isError && alertMsg && (
-                        <div><p>{alertMsg}</p></div>
+                    {isErrorCategory && alertMsgCategory && (
+                        <div><p>{alertMsgCategory}</p></div>
                     )}
                 </Row>
             </Container>

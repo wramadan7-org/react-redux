@@ -4,10 +4,10 @@ export default {
     getData: () => ({
         type: 'GET_DATA_CATEGORY',
         payload: axios.get('http://localhost:8080/public/category')
-    })
+    }),
 
-    // getDetail: () => ({
-    //     type: 'GET_DETAIL',
-    //     payload: axios.get('http://localhost:8080/category/')
-    // })
+    getDetail: (id) => ({
+        type: 'GET_DETAIL_CATEGORY',
+        payload: axios.get(`http://localhost:8080/category/detail/${id}`)
+    })
 }
