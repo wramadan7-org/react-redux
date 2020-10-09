@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
     Container,
-    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,
+    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
     Input, Button
 } from 'reactstrap'
 
@@ -9,7 +9,6 @@ import iconSearch from '../assets/images/Search.png'
 import iconFilter from '../assets/images/iconFilter.png'
 import iconCart from '../assets/images/cart.png'
 import { Link } from 'react-router-dom'
-import Style from '../assets/style.css'
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -33,28 +32,34 @@ class NavigationBar extends Component {
                             <div className="d-flex align-items-center w-75">
                                 <NavItem className="search w-100">
                                     <Input placeholder="Search" className="rounded-pill" />
-                                    <img className="iconSearch " src={iconSearch} />
+                                    <img className="iconSearch " src={iconSearch} alt="img" />
                                     {/* <InputGroup className="group">
                                     <Input placeholder="Search" />
                                     <InputGroupAddon addonType="append">
-                                        <InputGroupText><img src={iconSearch} /></InputGroupText>
+                                        <InputGroupText><img src={iconSearch} alt="img" /></InputGroupText>
                                     </InputGroupAddon>
                                 </InputGroup> */}
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink><Button color="light"><img src={iconFilter} /></Button></NavLink>
+                                    <Button color="light"><img src={iconFilter} alt="img" /></Button>
                                 </NavItem>
                             </div>
 
                             <div className="d-flex align-items-center w-25 justify-content-between">
                                 <NavItem>
-                                    <NavLink><img src={iconCart} /></NavLink>
+                                    <Link to="/cart">
+                                        <img src={iconCart} alt="img" />
+                                    </Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Button className="rounded-pill">Login</Button>
+                                    <Link to="/login">
+                                        <Button className="rounded-pill">Login</Button>
+                                    </Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Button className="rounded-pill">Signup</Button>
+                                    <Link to="/signup">
+                                        <Button className="rounded-pill">Signup</Button>
+                                    </Link>
                                 </NavItem>
                             </div>
                         </Nav>

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import numeral from 'numeral'
 
 import itemActions from '../redux/actions/item'
 import {
     Container, Row, Col,
-    Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle,
-    Button
+    Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle
 } from 'reactstrap'
+import { Link } from 'react-router-dom'
+
+import imgJas from '../assets/images/jas.jpg'
 
 class Item extends Component {
 
@@ -19,23 +22,20 @@ class Item extends Component {
         const { isLoading, dataItem, isError, alertMsg } = this.props.item
         return (
             <Container>
-                <div></div>
-
-                <div className="mt-3">
-                    <h1>New</h1>
-                    <Row className="mt-3">
+                <div className="my-3">
+                    <Row className="my-3">
                         {!isLoading && !isError && dataItem.length !== 0 && dataItem.map(o => (
-                            <Col md={3}>
-                                <Card className="shadow justify-content-between mt-3">
-                                    <CardImg src={o.picture} />
-                                    <CardBody>
-                                        <p className="hide">{o.id_item}</p>
-                                        <CardTitle className="font-weight-bold">{o.name}</CardTitle>
-                                        <CardSubtitle className="font-weight-bold" >{o.price}</CardSubtitle>
-                                        <CardText>{o.category}</CardText>
-                                    </CardBody>
-                                    <Button>Detail</Button>
-                                </Card>
+                            <Col md={4} sm={6} lg={3} xs={6}>
+                                <Link to={"/public/product/detail/" + o.id_item}>
+                                    <Card className="cardProduct shadow justify-content-between mx-3 my-3">
+                                        <CardImg src={imgJas} />
+                                        <CardBody>
+                                            <CardTitle className="font-weight-bolder text-dark">{o.name}</CardTitle>
+                                            <CardSubtitle className="text-danger font-weight-bold" >Rp {numeral(o.price).format(0, 0).toString().replace(',', '.')},-</CardSubtitle>
+                                            <CardText className="text-muted">{o.category}</CardText>
+                                        </CardBody>
+                                    </Card>
+                                </Link>
                             </Col>
                         ))}
                     </Row>

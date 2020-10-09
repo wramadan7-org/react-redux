@@ -9,7 +9,9 @@ import Item from './pages/Item'
 import Category from './pages/Category'
 import Public from './pages/Public'
 import DetailCategory from './pages/DetailCategory'
+import DetailProduct from './pages/DetailProduct'
 import Cart from './pages/Cart'
+import Profile from './pages/Profile'
 
 //import store
 import store from './redux/store'
@@ -43,12 +45,14 @@ export default class App extends Component {
 
               />
             </PrivateRoute>
-            <Route path='/episode' render={() => <Episode />} />
-            <Route path='/item' render={() => <Item />} />
-            <Route path='/category' render={() => <Category />} />
             <Route path='/public/category/detail/:id' render={(props) => <DetailCategory {...props} />} />
+            <Route path='/public/product/detail/:id' render={(props) => <DetailProduct {...props} />} />
             <Route path='/public' render={() => <Public />} />
-            <Route path="/cart" render={() => <Cart />} />
+            <Route path='/category' render={() => <Category />} />
+            <Route path='/product' render={() => <Item />} />
+            <Route path='/cart' render={() => <Cart />} />
+            <Route path='/profile' render={() => <Profile />} />
+            <Route path='/episode' render={() => <Episode />} />
           </Switch>
         </BrowserRouter>
       </Provider>

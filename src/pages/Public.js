@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import numeral from 'numeral'
 
 import itemActions from '../redux/actions/item'
 import categoryActions from '../redux/actions/category'
@@ -7,8 +8,7 @@ import NavigationBar from '../component/NavigationBar'
 
 import {
     Container, Row, Col,
-    Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle,
-    Button
+    Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle
 } from 'reactstrap'
 
 import imgJas from '../assets/images/jas.jpg'
@@ -30,16 +30,16 @@ class Public extends Component {
             <>
                 <NavigationBar />
                 <Container>
-                    <div className="mt-3">
+                    <div className="my-5">
                         <h1>Category</h1>
-                        <Row className="mt-3">
+                        <Row className="my-3">
                             {!isLoadingCategory && !isErrorCategory && dataCategory.length !== 0 && dataCategory.map(i => (
                                 <Col md={3}>
                                     <Link to={"/public/category/detail/" + i.id_category}>
                                         <Card color="" className="shadow justify-content-between mt-3">
                                             <CardImg src={i.picture} />
                                             <CardBody>
-                                                <CardTitle className="font-weight-bold">{i.name_category}</CardTitle>
+                                                <CardTitle className="font-weight-bold text-dark">{i.name_category}</CardTitle>
                                             </CardBody>
                                         </Card>
                                     </Link>
@@ -48,17 +48,17 @@ class Public extends Component {
                         </Row>
                     </div>
 
-                    <div className="mt-3">
+                    <div className="mt-5">
                         <h1>New</h1>
-                        <Row className="mt-3">
+                        <Row className="my-3">
                             {!isLoadingItem && !isErrorItem && dataItem.length !== 0 && dataItem.map(o => (
-                                <Col md={3}>
-                                    <Link to={"/public/item/detail/" + o.id_item}>
+                                <Col md={4} sm={6} lg={3} xs={6}>
+                                    <Link to={"/public/product/detail/" + o.id_item}>
                                         <Card className="cardProduct shadow justify-content-between mt-3">
                                             <CardImg src={imgJas} />
                                             <CardBody>
-                                                <CardTitle className="font-weight-bolder">{o.name}</CardTitle>
-                                                <CardSubtitle className="text-danger font-weight-bold" >{o.price}</CardSubtitle>
+                                                <CardTitle className="font-weight-bolder text-dark">{o.name}</CardTitle>
+                                                <CardSubtitle className="text-danger font-weight-bold" >Rp {numeral(o.price).format(0, 0).toString().replace(',', '.')},-</CardSubtitle>
                                                 <CardText className="text-muted">{o.category}</CardText>
                                             </CardBody>
                                         </Card>
