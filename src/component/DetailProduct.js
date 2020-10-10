@@ -26,7 +26,7 @@ class DetailProduct extends Component {
                     </Col>
                     <Col className="">
                         <div>
-                            <h3 className="font-weight-bold">Nike CruzrOne (Bright Crimson)</h3>
+                            <h3 className="font-weight-bold">{this.props.name}</h3>
                             <h6 className="text-muted">Nike</h6>
                         </div>
                         <div className=" d-flex align-items-center my-4">

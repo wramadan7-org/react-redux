@@ -9,10 +9,10 @@ import imgAccount from '../assets/images/user.png'
 import imgShipping from '../assets/images/map.png'
 import imgOrder from '../assets/images/myorder.png'
 import imgProfile from '../assets/images/profil.png'
-import FormProfile from '../component/FormProfile'
+import FormAddress from '../component/FormAddress'
 
 
-class Profile extends Component {
+class Address extends Component {
     render() {
         return (
             <>
@@ -50,7 +50,7 @@ class Profile extends Component {
                         </div>
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
-                        <FormProfile />
+                        <FormAddress />
                     </Col>
                 </Row>
             </>
@@ -60,4 +60,4 @@ class Profile extends Component {
 
 // weaper pisang
 
-export default Profile
+export default Address

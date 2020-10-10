@@ -12,6 +12,7 @@ import DetailCategory from './pages/DetailCategory'
 import DetailProduct from './pages/DetailProduct'
 import Cart from './pages/Cart'
 import Profile from './pages/Profile'
+import Address from './pages/Address'
 
 //import store
 import store from './redux/store'
@@ -51,6 +52,7 @@ export default class App extends Component {
             <Route path='/category' render={() => <Category />} />
             <Route path='/product' render={() => <Item />} />
             <Route path='/cart' render={() => <Cart />} />
+            <Route path='/profile/address' render={() => <Address />} />
             <Route path='/profile' render={() => <Profile />} />
             <Route path='/episode' render={() => <Episode />} />
           </Switch>
