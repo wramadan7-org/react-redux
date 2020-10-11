@@ -19,42 +19,41 @@ import store from './redux/store'
 import { Provider } from 'react-redux'
 
 export default class App extends Component {
-  state = {
-    id: 0,
-    id_role: 0,
-    isLogin: false,
-    counter: 0
-  }
-
-  setLogin = (data, cb) => {
-    this.setState(data, () => {
-      cb()
-    })
-  }
   render() {
     return (
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path='/' render={(props) => <Home {...props} counter={this.state.counter} />} exact />
-            <Route path='/login' render={(props) => <Login {...props} login={(data, cb) => this.setLogin(data, cb)} />} />
-            <PrivateRoute path='/counter' isLogin={this.state.isLogin}>
-              <Counter
-                counter={this.state.counter}
-                increment={() => this.setState({ counter: this.state.counter + 1 })}
-                decrement={() => this.setState({ counter: this.state.counter - 1 })}
-
-              />
+            <Route path='/' render={(props) => <Home {...props} />} exact />
+            <Route path='/login' render={(props) => <Login {...props} />} />
+            <PrivateRoute path='/counter'>
+              <Counter />
             </PrivateRoute>
+
+            <PrivateRoute path='/profile/address'>
+              <Address />
+            </PrivateRoute>
+
+            <PrivateRoute path='/profile'>
+              <Profile />
+            </PrivateRoute>
+
+            <PrivateRoute path='/episode'>
+              <Episode />
+            </PrivateRoute>
+
             <Route path='/public/category/detail/:id' render={(props) => <DetailCategory {...props} />} />
             <Route path='/public/product/detail/:id' render={(props) => <DetailProduct {...props} />} />
             <Route path='/public' render={() => <Public />} />
             <Route path='/category' render={() => <Category />} />
             <Route path='/product' render={() => <Item />} />
-            <Route path='/cart' render={() => <Cart />} />
-            <Route path='/profile/address' render={() => <Address />} />
-            <Route path='/profile' render={() => <Profile />} />
-            <Route path='/episode' render={() => <Episode />} />
+            {/* <Route path='/cart' render={() => <Cart  />} /> */}
+            {/* <Route path='/profile/address' render={() => <Address />} /> */}
+            {/* <Route path='/profile' render={() => <Profile />} /> */}
+            {/* <Route path='/episode' render={() => <Episode />} /> */}
+            <PrivateRoute patch="/cart">
+              <Cart />
+            </PrivateRoute>
           </Switch>
         </BrowserRouter>
       </Provider>

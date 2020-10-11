@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import {
     Row, Col, Container,
     Button, Label, Input, Form, FormGroup
@@ -10,10 +11,17 @@ import imgShipping from '../assets/images/map.png'
 import imgOrder from '../assets/images/myorder.png'
 import imgProfile from '../assets/images/profil.png'
 import FormProfile from '../component/FormProfile'
+import profileActions from '../redux/actions/profile'
 
 
 class Profile extends Component {
+    componentDidMount() {
+        // console.log('ok')
+        this.props.getProfile(this.props.auth.token)
+    }
+
     render() {
+        const { dataProfile: user, isLoading, isError, alertMsg } = this.props.profile
         return (
             <>
                 <NavigationBar />
@@ -25,7 +33,7 @@ class Profile extends Component {
                                     <img className="rounded-circle" src={imgProfile} />
                                 </div>
                                 <div>
-                                    <span>Johanes Michael</span>
+                                    <span>{user.name}</span>
                                     <Link to="#" className="text-dark">
                                         <img /> <p>Edit Profile</p>
                                     </Link>
@@ -50,7 +58,7 @@ class Profile extends Component {
                         </div>
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
-                        <FormProfile />
+                        <FormProfile name={user.name} email={user.email} phone={user.phone} gender={user.gender} />
                     </Col>
                 </Row>
             </>
@@ -59,5 +67,13 @@ class Profile extends Component {
 }
 
 // weaper pisang
+const mapStateToProps = state => ({
+    auth: state.auth,
+    profile: state.profile
+})
 
-export default Profile
+const mapDispatchToProps = {
+    getProfile: profileActions.getProfile
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

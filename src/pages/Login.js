@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Label, Input, Button, Alert } from 'reactstrap'
+import { connect } from 'react-redux'
+import auth from '../redux/actions/auth'
 
-export default class Login extends Component {
+class Login extends Component {
     state = {
         email: '',
         password: '',
@@ -11,36 +13,30 @@ export default class Login extends Component {
     login = (e) => {
         e.preventDefault()
         const { email, password } = this.state
-        if (email === 'admin@mail.com' && password === 'admin') {
-            this.props.login({
-                id: 1,
-                id_role: 1,
-                isLogin: true
-            }, () => {
-                this.props.history.push('/', { isLogin: true })
-            })
-        } else {
-            alert('Email or Password incorrect')
+        const data = {
+            email,
+            password
         }
+        this.props.login(data)
     }
 
     onChangeText = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         // console.log(this.props.location.state.from.pathname)
-        if (this.props.location.state) {
-            if (this.props.location.state.from.pathname.includes('counter')) {
-                this.setState({ alert: 'Login first' })
-            }
+        if (this.props.auth.isLogin) {
+            this.props.history.push('/profile')
         }
     }
 
     render() {
+        const { isError, alertMsg } = this.props.auth
         return (
             <div className="vh-100 d-flex justify-content-center align-items-center">
                 <div style={{ width: 400 }}>
+                    <Alert color={isError ? 'danger' : 'success'} isOpen={isError || alertMsg !== ''}>{alertMsg}</Alert>
                     {this.state.alert !== '' && <Alert color='danger'>{this.state.alert}</Alert>}
                     <Form onSubmit={this.login}>
                         <Label for='email'>Email</Label>
@@ -54,3 +50,13 @@ export default class Login extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+const mapDispatchToProps = {
+    login: auth.login
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

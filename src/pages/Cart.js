@@ -7,17 +7,20 @@ import {
 } from 'reactstrap'
 import NavigationBar from '../component/NavigationBar'
 import imgJas from '../assets/images/jas.jpg'
-import cartActions from '../redux/actions/item'
+import cartActions from '../redux/actions/cart'
 
 class Cart extends Component {
 
     componentDidMount() {
-        this.props.getCart()
+        this.props.getCart(this.props.auth.token)
+        console.log(this.props.auth.token)
     }
 
 
     render() {
-        const { isLoading, isError, dataItem, alertMsg } = this.props.cart
+        const { isLoading, isError, dataCart, total, alertMsg } = this.props.cart
+        // console.log(this.props.cart)
+        // console.log(this.props.auth.token)
         return (
             <div>
                 <NavigationBar />
@@ -26,7 +29,7 @@ class Cart extends Component {
                     <h2>Action masih dari item</h2>
                     <Row>
                         <Col md="8" sm="12" className="">
-                            {!isLoading && !isError && dataItem.length !== 0 && dataItem.map(o => (
+                            {!isLoading && !isError && dataCart.length !== 0 && dataCart.map(o => (
 
                                 <Col className="shadow">
                                     <div className="w-100 mb-3 ">
@@ -37,12 +40,12 @@ class Cart extends Component {
                                             </div>
                                             <div className="d-flex align-items-center  justify-content-around w-100" style={{ height: 100 }}>
                                                 <div className="border w-25">
-                                                    <p className="font-weight-bold">{o.name}</p>
-                                                    <p className="text-muted">{o.category}</p>
+                                                    <p className="font-weight-bold">{o.item}</p>
+                                                    <p className="text-muted">Category</p>
                                                 </div>
                                                 <div className="align-items-center d-flex">
                                                     <Button className="rounded-pill">-</Button>
-                                                    <p>12</p>
+                                                    <p>{o.qty}</p>
                                                     <Button className="rounded-pill">+</Button>
                                                 </div>
                                                 <div className="">
@@ -53,33 +56,7 @@ class Cart extends Component {
                                     </div>
                                 </Col>
                             ))}
-                            {/* <Col className="d-flex shadow w-100" sm="12" md="12">
-                                <div className="shadow w-100 mb-3">
-                                    <div className="d-flex align-items-center mb-3">
-                                        <Input type="checkbox" />
-                                        <div className="d-flex mr-2">
-                                            <img src={imgJas} className="imgListCart" alt="imgCategory" />
-                                        </div>
-                                        <div className="d-flex align-items-center" style={{ height: 100 }}>
-                                            <div className="">
-                                                <p className="font-weight-bold">Mens formal sui - Black</p>
-                                                <p className="text-muted">Zalora Cloth</p>
-                                            </div>
-                                            <div className="align-items-center d-flex ">
-                                                <Button className="rounded-pill ">-</Button>
-                                                <p className="">12</p>
-                                                <Button className="rounded-pill">+</Button>
-                                            </div>
-                                            <div className="align-items-end">
-                                                <p>400000</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </Col> */}
                         </Col>
-
 
                         <Col>
                             <div className="w-auto shadow ">
@@ -88,7 +65,7 @@ class Cart extends Component {
                                         <h6>Shopping summary</h6>
                                         <div className="d-flex justify-content-between">
                                             <p>Total price</p>
-                                            <p>40000</p>
+                                            <p>{total}</p>
                                         </div>
                                         <Button block className="rounded-pill">Buy</Button>
                                     </div>
@@ -110,7 +87,8 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-    cart: state.item
+    auth: state.auth,
+    cart: state.cart
 })
 
 // const mapDispatchToProps = dispatch => {
@@ -120,6 +98,6 @@ const mapStateToProps = state => ({
 // }
 
 const mapDispatchToProps = {
-    getCart: cartActions.getData
+    getCart: cartActions.getCart
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)

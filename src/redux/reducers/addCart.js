@@ -1,6 +1,5 @@
 const initialState = {
     dataCart: [],
-    total: [],
     isLoading: '',
     isError: '',
     alertMsg: ''
@@ -8,26 +7,25 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_CART_PENDING': {
+        case 'ADD_CART_PENDING': {
             return {
                 ...state,
-                isLoading: true
+                isloading: true
             }
         }
-        case 'GET_CART_REJECTED': {
+        case 'ADD_CART_REJECTED': {
             return {
                 ...state,
                 isLoading: false,
                 isError: true,
-                alertMsg: 'There is fail to request data'
+                alertMsg: 'Your request rejected'
             }
         }
-        case 'GET_CART_FULFILLED': {
+        case 'ADD_CART_FULFILLED': {
             return {
                 ...state,
-                isLoading: false,
-                dataCart: action.payload.data.results,
-                total: action.payload.data.total
+                isError: false,
+                dataCart: action.payload.
             }
         }
         default: {

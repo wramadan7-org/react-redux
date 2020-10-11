@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
+// import { connect } from 'react-redux'
 import {
     Container, Col, Form, FormGroup,
     Input, Label, Button
 } from 'reactstrap'
 import imgLogo from '../assets/images/Logo.png'
+// import profileAction from '../redux/actions/profile'
 
 class FormProfile extends Component {
+
+    // componentDidMount() {
+    //     this.props.getProfile(this.props.auth.token)
+    // }
+
+
     render() {
+        // const { dataProfile: user, isLoading, isError, alertMsg } = this.props.profile
+        // console.log('ok', this.props.profile)
         return (
             <div className=" w-100">
                 {/* <Col className=" mt-5 mb-5 w-100"> */}
@@ -22,19 +32,19 @@ class FormProfile extends Component {
                                 <FormGroup row>
                                     <Label for="forName" sm={4}>Name</Label>
                                     <Col sm={7}>
-                                        <Input placeholder="Name" />
+                                        <Input placeholder="Name" value={this.props.name} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label for="forEmail" sm={4}>Email</Label>
                                     <Col sm={7}>
-                                        <Input placeholder="Email" type="email" />
+                                        <Input placeholder="Email" type="email" value={this.props.email} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row className="">
                                     <Label for="forNumber" sm={4}>Phone number</Label>
                                     <Col sm={7} className="">
-                                        <Input placeholder="Phone" />
+                                        <Input placeholder="Phone" value={this.props.phone} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
@@ -85,5 +95,14 @@ class FormProfile extends Component {
         )
     }
 }
+
+// const mapStateToProps = state => ({
+//     auth: state.auth,
+//     profile: state.profile
+// })
+
+// const mapDispatchToProps = {
+//     getProfile: profileAction.getProfile
+// }
 
 export default FormProfile

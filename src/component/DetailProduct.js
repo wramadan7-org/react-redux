@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import {
     Container,
     Row, Col,
-    Button, Progress
+    Button, Progress, Label
 } from 'reactstrap'
 
 import imgSpatu1 from '../assets/images/spatu1.jpg'
@@ -14,7 +15,45 @@ import imgStar from '../assets/images/Star.png'
 import ListProduct from '../pages/Item'
 
 class DetailProduct extends Component {
+
+    state = {
+        size: 1,
+        qty: 1
+    }
+
+    handlePlushSize = () => {
+        this.setState({
+            size: this.state.size + 1
+        })
+    }
+
+    handlePlushQty = () => {
+        this.setState({
+            qty: this.state.qty + 1
+        })
+    }
+
+    handleMinusSize = () => {
+        this.setState({
+            size: this.state.size - 1
+        })
+    }
+
+    handleMinusQty = () => {
+        this.setState({
+            qty: this.state.qty - 1
+        })
+    }
+
     render() {
+        let buttonDisableSize = false
+        let buttonDisableQty = false
+        if (this.state.size === 0) {
+            buttonDisableSize = true
+        }
+        if (this.state.qty === 0) {
+            buttonDisableQty = true
+        }
         return (
             <Container className="my-5">
                 <Row>
@@ -27,7 +66,7 @@ class DetailProduct extends Component {
                     <Col className="">
                         <div>
                             <h3 className="font-weight-bold">{this.props.name}</h3>
-                            <h6 className="text-muted">Nike</h6>
+                            <h6 className="text-muted">{this.props.category}</h6>
                         </div>
                         <div className=" d-flex align-items-center my-4">
                             <img src={imgStar} alt="star" />
@@ -39,7 +78,7 @@ class DetailProduct extends Component {
                         </div>
                         <div className="my-4">
                             <h6 className="text-muted">Proce</h6>
-                            <h3 className="font-weight-bold">$ 20.0</h3>
+                            <h3 className="font-weight-bold">{this.props.price}</h3>
                         </div>
                         <div className="my-4">
                             <h6 className="text-muted">Color</h6>
@@ -54,17 +93,17 @@ class DetailProduct extends Component {
                             <div className="mr-5">
                                 <h6 className="text-muted">Size</h6>
                                 <div className="align-items-center d-flex">
-                                    <Button className="rounded-circle mr-2" style={{ height: 30 }}>-</Button>
-                                    <p className="mr-2">28</p>
-                                    <Button className="rounded-circle mr-2" style={{ height: 30 }}>+</Button>
+                                    <Button disabled={buttonDisableSize} onClick={this.handleMinusSize} className=" mr-2" >-</Button>
+                                    <Label className="mr-2">{this.state.size}</Label>
+                                    <Button onClick={this.handlePlushSize} className=" mr-2" >+</Button>
                                 </div>
                             </div>
                             <div>
                                 <h6 className="text-muted">Qty</h6>
                                 <div className="align-items-center d-flex">
-                                    <Button className="rounded-circle mr-2" style={{ height: 30 }}>-</Button>
-                                    <p className="mr-2">1</p>
-                                    <Button className="rounded-circle mr-2" style={{ height: 30 }}>+</Button>
+                                    <Button disabled={buttonDisableQty} onClick={this.handleMinusQty} className=" mr-2" >-</Button>
+                                    <Label className="mr-2">{this.state.qty}</Label>
+                                    <Button onClick={this.handlePlushQty} className=" mr-2" >+</Button>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +112,9 @@ class DetailProduct extends Component {
                                 <Button block className="rounded-pill">Chat</Button>
                             </div>
                             <div className="w-50">
-                                <Button block className="rounded-pill">Add bag</Button>
+                                <Link to="/cart">
+                                    <Button block className="rounded-pill">Add bag</Button>
+                                </Link>
                             </div>
                         </div>
                         <div>
@@ -88,11 +129,11 @@ class DetailProduct extends Component {
                         </div>
                         <div className="my-5">
                             <h5 className="font-weight-bold">Condition</h5>
-                            <h5 className="text-danger">New</h5>
+                            <h5 className="text-danger">{this.props.condition}</h5>
                         </div>
                         <div className="my-5">
                             <h5 className="font-weight-bold">Description</h5>
-                            <p className="text-muted">This is description for fild description in database</p>
+                            <p className="text-muted">{this.props.description}</p>
                         </div>
                     </Col>
                 </Row>
@@ -181,7 +222,7 @@ class DetailProduct extends Component {
                     <h1>You can also like this</h1>
                     <h6 className="text-muted">You've never seen it before</h6>
                 </div>
-                <ListProduct />
+                < ListProduct />
             </Container>
         )
     }

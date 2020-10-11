@@ -31,6 +31,7 @@ class Episode extends Component {
 }
 
 const mapStateToPops = state => ({
+    auth: state.auth,
     episode: state.episode
 })
 
