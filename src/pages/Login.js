@@ -22,6 +22,7 @@ class Login extends Component {
 
     onChangeText = (e) => {
         this.setState({ [e.target.name]: e.target.value })
+        console.log({ [e.target.name]: e.target.value })
     }
 
     componentDidUpdate() {

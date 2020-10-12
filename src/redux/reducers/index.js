@@ -8,6 +8,7 @@ import detailProduct from './detailProduct'
 import auth from './auth'
 import cart from './cart'
 import profile from './profile'
+import address from './address'
 
 export default combineReducers({
     episode,
@@ -17,5 +18,6 @@ export default combineReducers({
     detailProduct,
     cart,
     auth,
-    profile
+    profile,
+    address
 })

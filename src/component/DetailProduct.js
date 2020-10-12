@@ -13,12 +13,29 @@ import imgSpatu4 from '../assets/images/spatu4.jpg'
 import imgStar from '../assets/images/Star.png'
 
 import ListProduct from '../pages/Item'
+import cartActions from '../redux/actions/cart'
+import { connect } from 'react-redux'
 
 class DetailProduct extends Component {
 
     state = {
+        id_item: this.props.id_item,
         size: 1,
         qty: 1
+    }
+
+    addCart = (e) => {
+        e.preventDefault()
+        const { id_item, qty } = this.state
+        // this.setState({ id_item: this.props.id_item })
+        const data = {
+            id_item,
+            qty
+        }
+        // console.log(data)
+        // console.log(this.props.id_item)
+        this.props.addCart(this.props.auth.token, data)
+        // this.props.history.push('/cart')
     }
 
     handlePlushSize = () => {
@@ -112,9 +129,9 @@ class DetailProduct extends Component {
                                 <Button block className="rounded-pill">Chat</Button>
                             </div>
                             <div className="w-50">
-                                <Link to="/cart">
-                                    <Button block className="rounded-pill">Add bag</Button>
-                                </Link>
+                                {/* <Link to=""> */}
+                                <Button onClick={this.addCart} block className="rounded-pill">Add bag</Button>
+                                {/* </Link> */}
                             </div>
                         </div>
                         <div>
@@ -228,4 +245,13 @@ class DetailProduct extends Component {
     }
 }
 
-export default DetailProduct
+const mapStateToProps = state => ({
+    auth: state.auth,
+    cart: state.cart
+})
+
+const mapDispatchToProps = {
+    addCart: cartActions.addCart
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailProduct)

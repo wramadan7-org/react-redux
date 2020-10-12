@@ -11,9 +11,17 @@ import imgOrder from '../assets/images/myorder.png'
 import imgProfile from '../assets/images/profil.png'
 import FormAddress from '../component/FormAddress'
 
+import addressActions from '../redux/actions/address'
+import { connect } from 'react-redux'
+
 
 class Address extends Component {
+    componentDidMount() {
+        this.props.getAddress(this.props.auth.token)
+    }
+
     render() {
+        const { dataProfile: user } = this.props.profile
         return (
             <>
                 <NavigationBar />
@@ -25,7 +33,7 @@ class Address extends Component {
                                     <img className="rounded-circle" src={imgProfile} />
                                 </div>
                                 <div>
-                                    <span>Johanes Michael</span>
+                                    <span>{user.name}</span>
                                     <Link to="#" className="text-dark">
                                         <img /> <p>Edit Profile</p>
                                     </Link>
@@ -50,7 +58,8 @@ class Address extends Component {
                         </div>
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
-                        <FormAddress />
+                        <FormAddress
+                        />
                     </Col>
                 </Row>
             </>
@@ -59,5 +68,14 @@ class Address extends Component {
 }
 
 // weaper pisang
+const mapStateToProps = state => ({
+    auth: state.auth,
+    address: state.address,
+    profile: state.profile
+})
 
-export default Address
+const mapDispatchToProps = {
+    getAddress: addressActions.getAddress
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Address)

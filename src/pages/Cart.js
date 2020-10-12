@@ -11,6 +11,7 @@ import cartActions from '../redux/actions/cart'
 
 class Cart extends Component {
 
+
     componentDidMount() {
         this.props.getCart(this.props.auth.token)
         console.log(this.props.auth.token)
