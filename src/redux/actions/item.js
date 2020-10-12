@@ -1,12 +1,13 @@
-import { default as axios } from 'axios'
+// import { default as axios } from 'axios'
+import http from '../../helpers/http'
 
 export default {
     getData: () => ({
         type: 'GET_DATA_ITEM',
-        payload: axios.get('http://localhost:8080/public/items')
+        payload: http().get('public/items')
     }),
     getDetail: (id) => ({
         type: 'GET_DETAIL_ITEM',
-        payload: axios.get(`http://localhost:8080/items/detail/${id}`)
+        payload: http().get(`items/detail/${id}`)
     })
 }

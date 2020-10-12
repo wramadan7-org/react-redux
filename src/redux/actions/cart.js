@@ -9,11 +9,11 @@ export default {
     // })
     getCart: (token) => ({
         type: 'GET_CART',
-        payload: http(token).get('customer/cart')
+        payload: http(token).get(`customer/cart`)
     }),
     addCart: (token, data) => ({
         type: 'ADD_CART',
-        payload: http(token).post('/customer/cart', qs.stringify(data))
+        payload: http(token).post(`customer/cart`, qs.stringify(data))
         // payload: axios.post('http://localhost:8080/customer/cart')
     })
 }
