@@ -6,8 +6,8 @@ export default {
         type: 'GET_DATA_ITEM',
         payload: http().get('public/items')
     }),
-    getDetail: (id) => ({
+    getDetail: (id, token) => ({
         type: 'GET_DETAIL_ITEM',
-        payload: http().get(`items/detail/${id}`)
+        payload: http(token).get(`items/detail/${id}`)
     })
 }

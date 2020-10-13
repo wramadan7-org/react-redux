@@ -9,6 +9,7 @@ import auth from './auth'
 import cart from './cart'
 import profile from './profile'
 import address from './address'
+import register from './register'
 
 export default combineReducers({
     episode,
@@ -19,5 +20,6 @@ export default combineReducers({
     cart,
     auth,
     profile,
-    address
+    address,
+    register
 })

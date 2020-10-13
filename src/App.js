@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Home from './pages/Home'
 import Counter from './pages/Counter'
 import PrivateRoute from './component/PrivateRoute'
@@ -27,6 +28,7 @@ export default class App extends Component {
           <Switch>
             <Route path='/' render={(props) => <Home {...props} />} exact />
             <Route path='/login' render={(props) => <Login {...props} />} />
+            <Route path='/register' render={(props) => <Register {...props} />} />
             <PrivateRoute path='/counter'>
               <Counter />
             </PrivateRoute>

@@ -8,6 +8,10 @@ export default {
         type: 'AUTH_USER',
         payload: http().post(`login/customer`, qs.stringify(data))
     }),
+    register: (data) => ({
+        type: 'REGISTER_USER',
+        payload: http().post(`register/customer`, qs.stringify(data))
+    }),
     logout: () => ({
         type: 'LOGOUT_USER'
     }),

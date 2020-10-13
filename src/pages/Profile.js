@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {
-    Row, Col, Container,
-    Button, Label, Input, Form, FormGroup
+    Row, Col, Button
 } from 'reactstrap'
 import NavigationBar from '../component/NavigationBar'
 import imgAccount from '../assets/images/user.png'
@@ -22,9 +21,12 @@ class Profile extends Component {
 
     render() {
         const { dataProfile: user, isLoading, isError, alertMsg } = this.props.profile
+        // console.log('ok', user.name)
         return (
             <>
                 <NavigationBar />
+                {/* {!isLoading && !isError && user !== 0 && ( */}
+
                 <Row className="">
                     <Col md="3" lg="3" className="shadow vh-100 w-100 d-flex justify-content-between">
                         <div className="my-5 w-75 ml-5">
@@ -58,9 +60,20 @@ class Profile extends Component {
                         </div>
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
-                        <FormProfile name={user.name} email={user.email} phone={user.phone} gender={user.gender} />
+                        <FormProfile name={user.name} email={user.email} phone={user.phone} gender={user.gender} image={user.image} password={user.password} date={user.date} />
                     </Col>
                 </Row>
+                {/* )} */}
+                {/* {isLoading && !isError && (
+                    <div className="vh-100 justify-content-center align-items-center">
+                        <p>Loading</p>
+                    </div>
+                )}
+                {isError && alertMsg !== '' && (
+                    <div className="vh-100 justify-content-center align-items-center">
+                        <p>{alertMsg}</p>
+                    </div>
+                )} */}
             </>
         )
     }

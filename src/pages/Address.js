@@ -58,8 +58,7 @@ class Address extends Component {
                         </div>
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
-                        <FormAddress
-                        />
+                        <FormAddress />
                     </Col>
                 </Row>
             </>

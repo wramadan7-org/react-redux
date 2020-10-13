@@ -1,43 +1,32 @@
 const initialState = {
-    isLogin: false,
+    dataUser: [],
+    isLoading: '',
     isError: false,
-    token: '',
     alertMsg: ''
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'AUTH_USER_PENDING': {
+        case 'REGISTER_USER_PENDING': {
             return {
                 ...state,
                 isLoading: true
             }
         }
-        case 'AUTH_USER_REJECTED': {
+        case 'REGISTER_USER_REJECTED': {
             return {
                 ...state,
-                isLogin: false,
                 isLoading: false,
                 isError: true,
                 alertMsg: 'Your request rejected'
             }
         }
-        case 'AUTH_USER_FULFILLED': {
+        case 'REGISTER_USER_FULFILLED': {
             return {
                 ...state,
                 isError: false,
-                isLogin: true,
                 isLoading: false,
-                token: action.payload.data.token
-            }
-        }
-        case 'LOGOUT_USER': {
-            return {
-                ...state,
-                isLogin: false,
-                token: '',
-                isError: false,
-                alertMsg: 'Logout succesfully'
+                dataUser: action.payload.data.data
             }
         }
         default: {
