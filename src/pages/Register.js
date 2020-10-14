@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import registerActions from '../redux/actions/auth'
+import imgLogo from '../assets/images/Logo.png'
 
 class Register extends Component {
     state = {
@@ -35,11 +36,11 @@ class Register extends Component {
         return (
             <div className="vh-100 d-flex align-items-center justify-content-center">
                 <div style={{ width: 400 }} className="align-items-center">
-                    <div className="text-center my-2">
-                        <h1>Belanja</h1>
+                    <div className="text-center my-4">
+                        <img src={imgLogo} style={{ height: 50 }} />
                     </div>
-                    <div className="text-center my-2">
-                        <h6 className="font-weight-bold">Please login with your account</h6>
+                    <div className="text-center my-4">
+                        <h6 className="font-weight-bolder">Please login with your account</h6>
                     </div>
                     <div className="d-flex justify-content-center">
                         <div className="" style={{ width: 100 }}>

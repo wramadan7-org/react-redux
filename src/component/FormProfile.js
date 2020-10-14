@@ -62,6 +62,11 @@ class FormProfile extends Component {
 
     render() {
         // const { dataProfile: user, isLoading, isError, alertMsg } = this.props.profile
+        // console.log(this.state.date)
+        // const date = this.state.date
+        // console.log(date)
+        // const day = new Date(date).getMonth
+        // console.log(day)
         return (
             <div className=" w-100">
                 {/* <Col className=" mt-5 mb-5 w-100"> */}
@@ -116,7 +121,7 @@ class FormProfile extends Component {
                                         <Input type="select">
                                             <option>2000</option>
                                         </Input> */}
-                                        <Input onChange={this.onChangeText} name="date" className="" type="date" value={this.state.date} />
+                                        <Input onChange={this.onChangeText} name="date" type="date" className="" value={this.state.date} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>

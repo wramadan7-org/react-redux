@@ -1,7 +1,7 @@
 const initialState = {
-    isLogin: false,
+    isLogin: true,
     isError: false,
-    token: '',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkX3VzZXIiOjUyLCJuYW1lIjoiV2FoeXUgUmFtYWRhbiIsImVtYWlsIjoid3JhbWE3QGdtYWlsLmNvbSIsImlkX3JvbGUiOjIsImdlbmRlciI6IkZlbWFsZSJ9LCJpYXQiOjE2MDI2NDk4MDR9.4xhTUffrYK0fMxFoqRzdiHLKtahRj0I5NTzo9oKnsiE',
     alertMsg: ''
 }
 

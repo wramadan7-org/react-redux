@@ -25,6 +25,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isError: false,
+                isLoading: false,
                 dataAddress: action.payload.data.result
             }
         }

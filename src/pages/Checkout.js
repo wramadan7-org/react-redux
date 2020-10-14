@@ -36,8 +36,8 @@ class Checkout extends Component {
                             </Col>
                             <Col xs={12} sm={12} md={12} lg={12} className="shadow my-3">
                                 <Row className="align-items-center p-2">
-                                    <Col>
-                                        <img src={imgJas} className="mr-1" />
+                                    <Col lg={4}>
+                                        <img src={imgJas} style={{ width: 180, height: 100 }} className="mr-1" />
                                     </Col>
                                     <Col className="d-flex justify-content-between">
                                         <div className="">

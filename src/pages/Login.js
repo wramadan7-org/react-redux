@@ -6,6 +6,7 @@ import {
 import { connect } from 'react-redux'
 import auth from '../redux/actions/auth'
 import { Link } from 'react-router-dom'
+import imgLogo from '../assets/images/Logo.png'
 
 class Login extends Component {
     state = {
@@ -53,17 +54,17 @@ class Login extends Component {
                     </Form>
                 </div> */}
                 <div style={{ width: 400 }} className="align-items-center">
-                    <div className="text-center my-2">
-                        <h1>Belanja</h1>
+                    <div className="text-center my-4">
+                        <img src={imgLogo} style={{ height: 50 }} />
                     </div>
-                    <div className="text-center my-2">
+                    <div className="text-center my-4">
                         <h6 className="font-weight-bold">Please login with your account</h6>
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-center ">
                         <div className="" style={{ width: 100 }}>
                             <Button block>Customer</Button>
                         </div>
-                        <div className="" style={{ width: 100 }}>
+                        <div className="border-left-0" style={{ width: 100 }}>
                             <Button block>Seller</Button>
                         </div>
                     </div>

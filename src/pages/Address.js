@@ -22,6 +22,8 @@ class Address extends Component {
 
     render() {
         const { dataProfile: user } = this.props.profile
+        const { isError, isLoading, dataAddress, alertMsg } = this.props.address
+        // console.log('page', this.props.address)
         return (
             <>
                 <NavigationBar />
@@ -58,7 +60,8 @@ class Address extends Component {
                         </div>
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
-                        <FormAddress />
+                        {/* {console.log('22', dataAddress)} */}
+                        <FormAddress data={this.dataAddress} />
                     </Col>
                 </Row>
             </>

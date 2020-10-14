@@ -37,8 +37,15 @@ class DetailProduct extends Component {
         // const {id_item} = this.props.auth
         console.log('oee', data)
         if (this.props.auth.token) {
+            console.log('oetoken', this.props.auth.token)
             this.props.addCart(this.props.auth.token, data)
+            this.props.history.push('/cart')
         } else {
+            console.log('gagal')
+            return (
+                this.props.history.push('/login')
+                // <Redirect to={{ pathname: '/login' }} />
+            )
             // return <Redirect to={{ pathname: '/login', state: { alert: 'Login first!', color: 'danger' } }} />
             // this.props.history.push('/')
             // this.props.history.push('/login')

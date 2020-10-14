@@ -15,13 +15,22 @@ import iconProfile from '../assets/images/profil.png'
 import { Link } from 'react-router-dom'
 import profileActions from '../redux/actions/profile'
 import authActions from '../redux/actions/auth'
+import imgLogo from '../assets/images/Logo.png'
 
 class NavigationBar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            navbarOpen: false
+            navbarOpen: false,
+            isLogin: props.isLogin
         }
+    }
+
+    logout = (e) => {
+        this.props.logout()
+        // return (
+        //     this.props.history.push('/login')
+        // )
     }
 
     render() {
@@ -31,7 +40,7 @@ class NavigationBar extends Component {
                 <Container>
                     <Link to={"/public"}>
                         <NavbarBrand>
-                            <h1>Brand</h1>
+                            <img src={imgLogo} style={{ height: 50 }} />
                         </NavbarBrand>
                     </Link>
                     <NavbarToggler onClick={() => this.setState({ navbarOpen: !this.state.navbarOpen })} />
@@ -90,12 +99,12 @@ class NavigationBar extends Component {
                                     </NavItem>
 
                                     <NavItem>
-                                        <Link to="">
+                                        <Link to="/profile">
                                             <img src={iconProfile} className="rounded-circle" alt="img" />
                                         </Link>
                                     </NavItem>
                                     <NavItem>
-                                        <Button onClick={isLogin === false}>Logout</Button>
+                                        <Button onClick={this.logout} color="transparant">Logout</Button>
                                     </NavItem>
                                 </div>
                             )}

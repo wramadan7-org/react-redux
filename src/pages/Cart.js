@@ -28,7 +28,6 @@ class Cart extends Component {
                 <NavigationBar />
                 <Container className="mt-3">
                     <h1>Cart</h1>
-                    <h2>Action masih dari item</h2>
                     <Row>
                         <Col md="8" sm="12" className="">
                             {!isLoading && !isError && dataCart.length !== 0 && dataCart.map(o => (
@@ -69,7 +68,7 @@ class Cart extends Component {
                                             <p>Total price</p>
                                             <p>{total}</p>
                                         </div>
-                                        <Button block className="rounded-pill">Buy</Button>
+                                        <Button onClick={() => this.props.history.push('/checkout')} block className="rounded-pill">Buy</Button>
                                     </div>
                                 </Container>
                             </div>

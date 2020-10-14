@@ -10,19 +10,35 @@ import addressActions from '../redux/actions/address'
 import { connect } from 'react-redux'
 
 class FormAddress extends Component {
-    state = {
-        modal: false,
-        homeAddress: '',
-        recepientsName: '',
-        recepientsNumber: '',
-        address: '',
-        postalCode: '',
-        city: ''
+    constructor(props) {
+        super(props)
+        this.state = {
+            modal: false,
+            homeAddress: '',
+            recepientsName: '',
+            recepientsNumber: '',
+            address: '',
+            postalCode: '',
+            city: ''
+        }
     }
+
+    // componentWillReceiveProps(props) {
+    //     this.setState({
+    //         homeAddress: props.home_address,
+    //         address: props.address,
+    //         recepientsName: props.recepients_name,
+    //         recepientsNumber: props.recepientd_number,
+    //         postalCode: props.postal_code,
+    //         city: props.city,
+    //         id_address: props.id_address
+    //     })
+    //     console.log('willrecevient', this.state)
+    // }
 
     addAddress = (e) => {
         e.preventDefault()
-        const { homeAddress, recepientsName, recepientsNumber, address, postalCode, city } = this.state
+        const { homeAddress, recepientsName, recepientsNumber, address, postalCode, city, modal } = this.state
         const data = {
             homeAddress,
             recepientsName,
@@ -32,6 +48,7 @@ class FormAddress extends Component {
             city
         }
         this.props.addAddress(this.props.auth.token, data)
+        this.setState({ modal: false })
     }
 
     onChangeText = (e) => {
@@ -39,19 +56,22 @@ class FormAddress extends Component {
         console.log({ [e.target.name]: e.target.value })
     }
 
-    componentDidMount() {
-        this.props.getAddress(this.props.auth.token)
-    }
-
-    componentDidUpdate() {
-        // console.log(this.props.add)
-    }
+    // componentDidMount() {
+    //     this.props.getAddress(this.props.auth.token)
+    // }
 
     render() {
         const { dataAddress, isLoading, isError, alertMsg } = this.props.address
+        // console.log('component', this.props.address)
         return (
             <div>
                 <Container>
+                    {/* {console.log('data', this.props.address.dataAddress.map(o => (
+                        console.log(o)
+                    )))} */}
+                    {/* {dataAddress.map(o => (
+                        console.log('aaa', o)
+                    ))} */}
                     <div>
                         <h1 className="font-weight-bold">Choose another address</h1>
                         <p className="text-muted">Manage your shipping address</p>
@@ -59,19 +79,34 @@ class FormAddress extends Component {
                     <div className="border"></div>
                     <div className="d-flex my-5">
                         <Container>
-                            <Col lg={12} md={10} className="align-items-center">
-                                <Link onClick={() => this.setState({ modal: true })}>
-                                    <div className="my-3 border" style={{ height: 100 }}>
-                                        <h6 className="text-muted text-center mt-5">Add new address</h6>
-                                    </div>
-                                </Link>
+                            <Row>
+                                <Col lg={12} md={10} className="align-items-center border">
+                                    <Link onClick={() => this.setState({ modal: true })}>
+                                        <div className="">
+                                            <h6 className="text-muted text-center mt-5">Add new address</h6>
+                                        </div>
+                                    </Link>
+                                </Col>
                                 {!isLoading && !isError && dataAddress !== 0 && dataAddress.map(o => (
-                                    <div className="border shadow">
-                                        <h6>{o.recepients_name}</h6>
-                                    </div>
-
+                                    <Col lg={12} md={10} className="align-content-center border my-3">
+                                        <div>
+                                            <p className="font-weight-bold">{o.recepients_name}</p>
+                                            <p className="text-muted">
+                                                {o.address}, {o.city}, {o.postal_code}
+                                            </p>
+                                            <p className="font-weight-bolder text-danger" onClick={() => console.log('change')}>Change address</p>
+                                        </div>
+                                    </Col>
                                 ))}
-                            </Col>
+                                {/* {!isLoading && !isError && dataAddress !== 0 && (
+
+                                    <Col lg={12} md={10} className="border my-3">
+                                        <div>
+                                            <p>{console.log(dataAddress)}</p>
+                                        </div>
+                                    </Col>
+                                )} */}
+                            </Row>
                         </Container>
                     </div>
                 </Container>

@@ -21,6 +21,12 @@ import store from './redux/store'
 import { Provider } from 'react-redux'
 
 export default class App extends Component {
+  // componentDidMount() {
+  //   if (localStorage.getItem){
+
+  //   }
+  // }
+
   render() {
     return (
       <Provider store={store}>
@@ -41,6 +47,10 @@ export default class App extends Component {
               <Profile />
             </PrivateRoute>
 
+            <PrivateRoute path='/checkout'>
+              <Checkout />
+            </PrivateRoute>
+
             <PrivateRoute path='/episode'>
               <Episode />
             </PrivateRoute>
@@ -50,7 +60,7 @@ export default class App extends Component {
             <Route path='/public' render={() => <Public />} />
             <Route path='/category' render={() => <Category />} />
             <Route path='/product' render={() => <Item />} />
-            <Route path='/checkout' render={() => <Checkout />} />
+            {/* <Route path='/checkout' render={() => <Checkout />} /> */}
             {/* <Route path='/cart' render={() => <Cart  />} /> */}
             {/* <Route path='/profile/address' render={() => <Address />} /> */}
             {/* <Route path='/profile' render={() => <Profile />} /> */}
