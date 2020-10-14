@@ -51,6 +51,19 @@ class FormAddress extends Component {
         this.setState({ modal: false })
     }
 
+    putAddress = (e) => {
+        e.preventDefault()
+        const { homeAddress, recepientsName, recepientsNumber, address, postalCode, city, modal } = this.state
+        const data = {
+            homeAddress,
+            recepientsName,
+            recepientsNumber,
+            address,
+            postalCode,
+            city
+        }
+    }
+
     onChangeText = (e) => {
         this.setState({ [e.target.name]: e.target.value })
         console.log({ [e.target.name]: e.target.value })
@@ -183,7 +196,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     getAddress: addressActions.getAddress,
-    addAddress: addressActions.addAddress
+    addAddress: addressActions.addAddress,
+    postAddress: addressActions.putAddress
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormAddress)

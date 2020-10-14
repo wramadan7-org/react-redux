@@ -11,5 +11,10 @@ export default {
     addAddress: (token, data) => ({
         type: 'ADD_ADDRESS',
         payload: http(token).post(`customer/address`, qs.stringify(data))
+    }),
+
+    putAddress: (token, data, id) => ({
+        type: 'UPDATE_ADDRESS',
+        payload: http(token).put(`customer/address/${id}`, qs.stringify(data))
     })
 }

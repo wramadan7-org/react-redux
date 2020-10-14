@@ -87,12 +87,6 @@ class DetailProduct extends Component {
         this.props.getDetail(id)
     }
 
-    componentDidUpdate() {
-        // let id = this.props.match.id
-        // this.props.getDetail(id)
-        // if (this.props.)
-    }
-
 
     render() {
         let buttonDisableSize = false
@@ -278,6 +272,16 @@ class DetailProduct extends Component {
                         </div>
                         < ListProduct />
                     </Container>
+                )}
+                {isLoading && !isError && (
+                    <div className="vh-100 justify-content-center align-items-center">
+                        <h1>Loading</h1>
+                    </div>
+                )}
+                {isError && alertMsg !== '' && (
+                    <div>
+                        <h1>{alertMsg}</h1>
+                    </div>
                 )}
             </div>
         )
