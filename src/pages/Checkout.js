@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
     Container, Row, Col,
-    Button,
+    Button, Form,
     Modal, ModalHeader, ModalBody, ModalFooter, Input
 } from 'reactstrap'
 import NavigationBar from '../component/NavigationBar'
@@ -15,12 +15,18 @@ class Checkout extends Component {
     state = {
         modalSummary: false,
         modalAddress: false,
+        modalNewAddress: false,
         total: ''
     }
 
     componentDidMount() {
         // console.log(this.state.total)
         this.props.getCart(this.props.auth.token)
+    }
+
+    onChangeText = (e) => {
+        e.preventDefault()
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     render() {
@@ -105,11 +111,13 @@ class Checkout extends Component {
                         <ModalBody>
                             <Row className="">
                                 <Col className="">
-                                    <div className="border" style={{ height: 50 }}>
-                                        <div className="">
-                                            <p className="text-center  text-muted">Add new address</p>
+                                    <Link onClick={() => this.setState({ modalNewAddress: true })}>
+                                        <div className="border" style={{ height: 50 }}>
+                                            <div className="">
+                                                <p className="text-center  text-muted">Add new address</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </Col>
                             </Row>
                             <Row className="my-4">
@@ -202,6 +210,69 @@ class Checkout extends Component {
                                 </Col>
                             </Row>
                         </ModalFooter>
+                    </Modal>
+
+                    {/* modal Add address */}
+                    <Modal isOpen={this.state.modalNewAddress} style={{ width: 1000 }}>
+                        <ModalHeader><h4>Add new address</h4></ModalHeader>
+                        <Form>
+                            <ModalBody>
+                                <Container>
+                                    <Row>
+                                        <Col>
+                                            <div>
+                                                <p className="text-muted">Save address as (ex:home address, official address)</p>
+                                                <Input onChange={this.onChangeText} name="homeAddress" type="text" />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <div>
+                                                <p>Recipient's name</p>
+                                                <Input onChange={this.onChangeText} name="recepientsName" type="text" />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div>
+                                                <p>Recepient's telephone number</p>
+                                                <Input onChange={this.onChangeText} name="recepientsNumber" type="text" />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <div>
+                                                <p>Address</p>
+                                                <Input onChange={this.onChangeText} name="address" type="text" />
+                                            </div>
+                                        </Col>
+                                        <Col>
+                                            <div>
+                                                <p>Postal code</p>
+                                                <Input onChange={this.onChangeText} name="postalCode" type="text" />
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <div>
+                                                <p>City or Subdistrict</p>
+                                                <Input onChange={this.onChangeText} name="city" type="text" />
+                                            </div>
+                                        </Col>
+                                        <Col></Col>
+                                    </Row>
+                                    <Col>
+                                        <Input type="radio" />{' Make it primary address'}
+                                    </Col>
+                                </Container>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button onClick={() => this.setState({ modalNewAddress: false })}>Cancle</Button>
+                                <Button type="submit" >Save</Button>
+                            </ModalFooter>
+                        </Form>
                     </Modal>
 
                 </Container>
