@@ -14,16 +14,17 @@ class Checkout extends Component {
 
     state = {
         modalSummary: false,
-        modalAddress: false
+        modalAddress: false,
+        total: ''
     }
 
     componentDidMount() {
+        // console.log(this.state.total)
         this.props.getCart(this.props.auth.token)
     }
 
-
     render() {
-        const { isLoading, isError, dataCart, alertMsg } = this.props.cart
+        const { isLoading, isError, dataCart, total, alertMsg } = this.props.cart
         return (
             <div>
                 <NavigationBar />
@@ -58,18 +59,6 @@ class Checkout extends Component {
                                             </div>
                                         </Col>
                                     </Row>
-                                    {/* <div className="p-2 d-flex align-items-center justify-content-between">
-                                    <div className="d-flex align-items-center">
-                                    <img src={imgJas} className="mr-1" />
-                                        <div>
-                                            <h6 className="font-weight-bold">Mens formal suit - Black</h6>
-                                            <span className="text-muted">Zalora Clouth</span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                    <h6 className="font-weight-bold">$ 20.0</h6>
-                                    </div>
-                                </div> */}
                                 </Col>
                             ))}
                         </Col>
@@ -79,7 +68,7 @@ class Checkout extends Component {
                                     <h6 className="font-weight-bold">Shopping summary</h6>
                                     <div className="d-flex justify-content-between">
                                         <span className="text-muted">Order</span>
-                                        <h6>$ 40.0</h6>
+                                        <h6>{total}</h6>
                                     </div>
                                     <div className="d-flex justify-content-between">
                                         <span className="text-muted">Delivery</span>
@@ -189,7 +178,7 @@ class Checkout extends Component {
                                         <p className="text-muted">Order</p>
                                     </Col>
                                     <Col>
-                                        <h6 className="font-weight-bold">$ 40.0</h6>
+                                        <h6 className="font-weight-bold">{total}</h6>
                                     </Col>
                                 </Row>
                                 <Row>

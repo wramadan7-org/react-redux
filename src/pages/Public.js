@@ -10,29 +10,58 @@ import imgSlide2 from '../assets/images/slider2.png'
 import imgCategory from '../assets/images/hicilpart1.png'
 
 import {
-    Container, Row, Col, Carousel,
-    Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle, CarouselIndicators, CarouselControl
+    Container, Row, Col,
+    Card, CardImg, CardBody, CardTitle, CardText, CardSubtitle,
+    Carousel, CarouselCaption, CarouselItem, CarouselControl, CarouselIndicators
 } from 'reactstrap'
 
 import imgJas from '../assets/images/jas.jpg'
 
 import { Link } from 'react-router-dom'
 
-const item = [
-    {
-        src: { imgSlide1 },
-        altText: 'Slide 1',
-        caption: 'Slide1'
-    },
-    {
-        src: { imgSlide2 },
-        altText: 'Slide 2',
-        caption: 'Slide2'
-    },
-]
 
 
 class Public extends Component {
+    item = [
+        {
+            src: { imgSlide1 },
+            altText: 'Slide 1',
+            caption: 'Slide1'
+        },
+        {
+            src: { imgSlide2 },
+            altText: 'Slide 2',
+            caption: 'Slide2'
+        },
+    ]
+
+    state = {
+        activeIndex: true,
+        setActiveIndex: true,
+        animating: false,
+        setAnimating: false
+    }
+
+    next = () => {
+        if (this.state.animating) {
+            const nextIndex = this.state.activeIndex === this.items.length - 1 ? 0 : this.state.activeIndex + 1
+            return this.state.setActiveIndex(nextIndex)
+        }
+    }
+
+    previous = () => {
+        if (this.state.animating) {
+            const nextIndex = this.state.activeIndex === this.items.length - 1 ? 0 : this.state.activeIndex - 1
+            return this.state.setActiveIndex(nextIndex)
+        }
+    }
+
+    goToIndex = (newIndex) => {
+        if (this.state.animating) {
+            return this.state.setActiveIndex(newIndex)
+        }
+    }
+
 
     componentDidMount() {
         this.props.getItem()
@@ -47,11 +76,11 @@ class Public extends Component {
                 <NavigationBar />
                 <Container>
                     {/* <div>
-                        <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-                            <CarouselIndicators items={items} activeInde{activeIndex} onClickHandler={goToIndex} />
-                            {slides}
-                            <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-                            <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+                        <Carousel activeIndex={this.state.activeIndex} next={this.next} previous={this.previous}>
+                            < CarouselIndicators items={this.item} activeIndex={this.state.activeIndex} onClickHandler={this.goToIndex} />
+                            {this.slides}
+                            <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+                            <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
                         </Carousel>
                     </div> */}
                     <div id="carouselExampleIndicators" className="carousel slide my-3" data-ride="carousel">
@@ -84,7 +113,7 @@ class Public extends Component {
                         <Row className="my-3 justify-content-center">
                             {!isLoadingCategory && !isErrorCategory && dataCategory.length !== 0 && dataCategory.map(i => (
                                 <Col md={3} lg={2}>
-                                    <Link to={"/public/category/detail/" + i.id_category}>
+                                    <Link to={"/category/detail/" + i.id_category}>
                                         <Card color="" className="shadow my-3">
                                             <CardImg src={imgCategory} className="align-self-center" style={{ height: 100, width: 100 }} />
                                             <CardBody className="align-self-center">
@@ -102,7 +131,7 @@ class Public extends Component {
                         <Row className="my-3">
                             {!isLoadingItem && !isErrorItem && dataItem.length !== 0 && dataItem.map(o => (
                                 <Col md={4} sm={6} lg={3} xs={6}>
-                                    <Link to={"/public/product/detail/" + o.id_item}>
+                                    <Link to={"/product/detail/" + o.id_item}>
                                         <Card className="cardProduct shadow justify-content-between mt-3">
                                             <CardImg src={imgJas} />
                                             <CardBody>

@@ -38,7 +38,7 @@ class NavigationBar extends Component {
         return (
             <Navbar color="light" light className="shadow" expand="md">
                 <Container>
-                    <Link to={"/public"}>
+                    <Link to={"/"}>
                         <NavbarBrand>
                             <img src={imgLogo} style={{ height: 50 }} />
                         </NavbarBrand>

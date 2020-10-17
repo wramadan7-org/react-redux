@@ -31,7 +31,7 @@ class DetailCategory extends Component {
                     <Row className="mt-3">
                         {!isLoadingCategory && !isErrorCategory && dataCategory.length !== 0 && dataCategory.map(o => (
                             <Col md={4} sm={6} lg={3} xs={6}>
-                                <Link to={"/public/product/detail/" + o.id_item}>
+                                <Link to={"/product/detail/" + o.id_item}>
                                     <Card className="cardProduct shadow justify-content-between mt-3">
                                         <CardImg src={jas} />
                                         <CardBody>

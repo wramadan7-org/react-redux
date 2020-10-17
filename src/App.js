@@ -32,12 +32,9 @@ export default class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
-            <Route path='/' render={(props) => <Home {...props} />} exact />
+            <Route path='/' render={() => <Public />} exact />
             <Route path='/login' render={(props) => <Login {...props} />} />
             <Route path='/register' render={(props) => <Register {...props} />} />
-            <PrivateRoute path='/counter'>
-              <Counter />
-            </PrivateRoute>
 
             <PrivateRoute path='/profile/address'>
               <Address />
@@ -55,9 +52,9 @@ export default class App extends Component {
               <Episode />
             </PrivateRoute>
 
-            <Route path='/public/category/detail/:id' render={(props) => <DetailCategory {...props} />} />
-            <Route path='/public/product/detail/:id' render={(props) => <DetailProduct {...props} />} />
-            <Route path='/public' render={() => <Public />} />
+            <Route path='/category/detail/:id' render={(props) => <DetailCategory {...props} />} />
+            <Route path='/product/detail/:id' render={(props) => <DetailProduct {...props} />} />
+            {/* <Route path='/public' render={() => <Public />} /> */}
             <Route path='/category' render={() => <Category />} />
             <Route path='/product' render={() => <Item />} />
             {/* <Route path='/checkout' render={() => <Checkout />} /> */}

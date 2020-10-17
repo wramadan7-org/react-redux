@@ -26,7 +26,7 @@ class Item extends Component {
                     <Row className="my-3">
                         {!isLoading && !isError && dataItem.length !== 0 && dataItem.map(o => (
                             <Col md={4} sm={6} lg={3} xs={6}>
-                                <Link to={"/public/product/detail/" + o.id_item}>
+                                <Link to={"/product/detail/" + o.id_item}>
                                     <Card className="cardProduct shadow justify-content-between mx-3 my-3">
                                         <CardImg src={imgJas} />
                                         <CardBody>

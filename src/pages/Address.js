@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {
-    Row, Col, Container,
-    Button, Label, Input, Form, FormGroup
+    Row, Col,
+    Button
 } from 'reactstrap'
 import NavigationBar from '../component/NavigationBar'
 import imgAccount from '../assets/images/user.png'
@@ -22,7 +22,7 @@ class Address extends Component {
 
     render() {
         const { dataProfile: user } = this.props.profile
-        const { isError, isLoading, dataAddress, alertMsg } = this.props.address
+        // const { isError, isLoading, dataAddress, alertMsg } = this.props.address
         // console.log('page', this.props.address)
         return (
             <>
@@ -61,7 +61,7 @@ class Address extends Component {
                     </Col>
                     <Col className="shadow ml-3 mt-5 mb-5 border" lg={8} md={8} >
                         {/* {console.log('22', dataAddress)} */}
-                        <FormAddress data={this.dataAddress} />
+                        <FormAddress />
                     </Col>
                 </Row>
             </>
