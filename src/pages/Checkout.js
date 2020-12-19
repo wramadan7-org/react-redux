@@ -20,7 +20,6 @@ class Checkout extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.state.total)
         this.props.getCart(this.props.auth.token)
     }
 
