@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Home from './pages/Home'
-import Counter from './pages/Counter'
+// import Home from './pages/Home'
+// import Counter from './pages/Counter'
 import PrivateRoute from './component/PrivateRoute'
 import Episode from './pages/Episode'
 import Item from './pages/Item'
@@ -16,35 +16,33 @@ import Profile from './pages/Profile'
 import Address from './pages/Address'
 import Checkout from './pages/Checkout'
 
-//import store
+// import store
 import store from './redux/store'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+// const { token } = useSelector((state) => state.auth)
+// import { PrivateRoute } from './helpers/PrivateRoute'
 
-export default class App extends Component {
-  // componentDidMount() {
-  //   if (localStorage.getItem){
-
-  //   }
-  // }
-
-  render() {
-    return (
-      <Provider store={store}>
+const App = () => {
+  return (
+    <Provider store={store().store}>
+      {/* {console.log(Provider)} */}
+      <PersistGate loading={null} persistor={store().persistor} >
         <BrowserRouter>
           <Switch>
             <Route path='/' render={() => <Public />} exact />
             <Route path='/login' render={(props) => <Login {...props} />} />
             <Route path='/register' render={(props) => <Register {...props} />} />
 
-            <PrivateRoute path='/profile/address'>
+            <PrivateRoute path='/profile/address' exact>
               <Address />
             </PrivateRoute>
 
-            <PrivateRoute path='/profile'>
+            <PrivateRoute path='/profile' exact>
               <Profile />
             </PrivateRoute>
 
-            <PrivateRoute path='/checkout'>
+            <PrivateRoute path='/checkout' exact>
               <Checkout />
             </PrivateRoute>
 
@@ -67,7 +65,9 @@ export default class App extends Component {
             </PrivateRoute>
           </Switch>
         </BrowserRouter>
-      </Provider>
-    )
-  }
+      </PersistGate>
+    </Provider>
+  )
 }
+
+export default App

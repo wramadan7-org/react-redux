@@ -1,132 +1,129 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
-    Container,
-    Input, Button,
-    Row, Col
+  Container,
+  Input, Button,
+  Row, Col
 } from 'reactstrap'
 import NavigationBar from '../component/NavigationBar'
 import imgJas from '../assets/images/jas.jpg'
 import cartActions from '../redux/actions/cart'
+import numeral from 'numeral'
+import {useHistory} from 'react-router-dom'
+// import dotenv from 'dotenv'
+// dotenv.config()
 
-class Cart extends Component {
+const Cart = () => {
+   const history = useHistory();
+  const { token } = useSelector((state) => state.auth)
+  const stateCart = useSelector((state) => state.cart)
 
-    componentDidMount() {
-        this.props.getCart(this.props.auth.token)
-    }
+  console.log('cart', stateCart)
+  console.log(process.env.REACT_APP_BACKEND_URL)
+  const env = process.env.REACT_APP_BACKEND_URL
 
-    increase = (e) => {
-        // const { dataCart } = this.props.cart
-        // dataCart[e] = {
-        //     ...this.props.cart[e],
-        //     quantity: this.props.cart[e].quantity + 1
-        // }
-        // console.log(e)
-        // console.log('ww', dataCart[e])
-        console.log('tambah')
-    }
+  const dispatch = useDispatch()
+  React.useEffect(() => {
+    dispatch(cartActions.getCart(token))
+  }, [])
 
-    decrease = (e) => {
-        console.log('kurang')
-    }
+  const increase = (e) => {
+    console.log('tambah')
+  }
 
-    render() {
-        const { isLoading, isError, dataCart, total, alertMsg } = this.props.cart
-        // console.log('stat', this.state)
-        // const { data } = this.state
-        return (
-            <div>
-                <NavigationBar />
-                <Container className="my-3">
-                    <h1>My bag</h1>
-                    <Row>
-                        <Col md={8} sm={12} className="">
-                            <Col xs={12} sm={12} md={12} lg={12} className="shadow my-3">
-                                <div className="p-2 d-flex justify-content-between">
-                                    <div className="d-flex align-self-center">
-                                        <Input type="checkbox" />
-                                        <h6 className="">Select all items </h6>
-                                        <h6 className="ml-2 text-muted">(2 items selected)</h6>
-                                    </div>
-                                    <div className="">
-                                        <p onClick={() => console.log('deleted')} className="text-danger">Deleted</p>
-                                    </div>
-                                </div>
-                            </Col>
+  const decrease = (e) => {
+    console.log('kurang')
+  }
+  return (
+      <div>
+         <NavigationBar />
+         <Container className="my-3">
+               <h1>My bag</h1>
+               <Row>
+                  <Col md={8} sm={12} className="">
+                     <Col xs={12} sm={12} md={12} lg={12} className="shadow my-3">
+                           <div className="p-2 d-flex justify-content-between">
+                              <div className="d-flex align-self-center" style={{width: 500}}>
+                                 <div className=" align-items-center justify-content-center ml-2">
+                                    <Input type="checkbox" />
+                                 </div>
+                                 <div className="">
+                                    <h6 className="">Select all items </h6>
+                                 </div>
+                                 <div className="">
+                                    <h6 className="ml-2 text-muted">(2 items selected)</h6>
+                                 </div>
+                              </div>
+                              <div className="">
+                                 <p onClick={() => console.log('deleted')} className="text-danger">Deleted</p>
+                              </div>
+                           </div>
+                     </Col>
 
-                            {!isLoading && !isError && dataCart.length !== 0 && dataCart.map(o => (
-                                <Col xs={12} sm={12} md={12} lg={12} className="shadow my-3">
-                                    <Row className="align-items-center p-2">
-                                        <Col sm={4} md={4} lg={3} className="align-self-center">
-                                            {/* <Input type="checkbox" name="check" /> */}
-                                            <div className="d-flex align-items-center w-100 ">
-                                                <Input type="checkbox" />
-                                                <img src={imgJas} style={{ height: 70 }} className="w-75" />
-                                            </div>
-                                        </Col>
-                                        <Col className="d-flex justify-content-between align-items-center">
-                                            <div className="" style={{ width: 150 }}>
-                                                <h6 className="font-weight-bold">{o.item}</h6>
-                                                <span className="text-muted">Category</span>
-                                            </div>
-                                        </Col>
-                                        <Col className="">
-                                            <div className="text-right  w-75 align-items-center justify-content-between d-flex" style={{ width: 100 }}>
-                                                <Button onClick={this.decrease} className="rounded-pill">-</Button>
-                                                <p>{o.qty}</p>
-                                                <Button onClick={this.increase} className="rounded-pill">+</Button>
-                                            </div>
-                                        </Col>
-                                        <Col className="">
-                                            <div className="text-right">
-                                                <h6 className="font-weight-bold">{o.price}</h6>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            ))}
-                        </Col>
+                     {!stateCart.isLoading && !stateCart.isError && stateCart.dataCart?.length > 0 && stateCart.dataCart.map(o => (
+                           <Col xs={12} sm={12} md={12} lg={12} className="shadow my-3" key={o.id}>
+                              <Row className="align-items-center p-2 ">
+                                 <Col sm={4} md={4} lg={3} className="align-self-center ">
+                                       {/* <Input type="checkbox" name="check" /> */}
+                                       <div className="d-flex align-items-center justify-content-around">
+                                          <div className=" align-items-center justify-content-center">
+                                             <Input type="checkbox" />
+                                          </div>
+                                          <div style={{width: 103, height: 69}} className="">
+                                             <img src={`${env}${o.picture}`} style={{ width: 103, height: 69 }} className="w-75" />
+                                          </div>
+                                       </div>
+                                 </Col>
+                                 <Col className="d-flex justify-content-between align-items-center">
+                                       <div className="" style={{ width: 150 }}>
+                                          <h6 className="font-weight-bold">{o.item}</h6>
+                                          <span className="text-muted">Category</span>
+                                       </div>
+                                 </Col>
+                                 <Col className="">
+                                       <div className=" align-items-center justify-content-between d-flex" style={{ width: 120 }}>
+                                          <div style={{width: 36, height: 36}}>
+                                             <Button onClick={() => decrease} className="rounded-pill" style={{backgroundColor: 'lightgrey', color: 'white', width: 36, height: 36}}>-</Button>
+                                          </div>
+                                          <div> {o.qty} </div>
+                                          <div style={{width: 36, height: 36}}>
+                                             <Button onClick={() => increase} className="rounded-pill" style={{backgroundColor: 'white', color: 'black', width: 36, height: 36}}>+</Button>
+                                          </div>
+                                       </div>
+                                 </Col>
+                                 <Col className="">
+                                       <div className="text-right">
+                                          <h6 className="font-weight-bold">Rp {numeral(o.price).format(0,0).toString().replace(',', '.')}</h6>
+                                       </div>
+                                 </Col>
+                              </Row>
+                           </Col>
+                     ))}
+                  </Col>
 
-                        <Col>
-                            <div className="p-2  shadow ">
-                                <Container>
-                                    <div>
-                                        <h6>Shopping summary</h6>
-                                        <div className="d-flex justify-content-between">
-                                            <p>Total price</p>
-                                            <p>{total}</p>
-                                        </div>
-                                        <Button onClick={() => this.props.history.push('/checkout')} block className="rounded-pill">Buy</Button>
-                                    </div>
-                                </Container>
-                            </div>
-                        </Col>
-                    </Row>
-                    {isLoading && !isError && (
-                        <div>Loading</div>
-                    )}
+                  <Col className="p-3">
+                     <div className="p-2 shadow " style={{height: 180}}>
+                        <h6>Shopping summary</h6>
+                        <div className="d-flex justify-content-between my-4">
+                              <p style={{color: 'grey'}}>Total price</p>
+                              <p className="font-weight-bold">Rp {numeral(stateCart.total).format(0, 0).toString().replace(',', '.')}</p>
+                        </div>
+                        <div className="my-3">
+                           <Button onClick={() => history.push('/checkout')} block className="rounded-pill mt-2" style={{backgroundColor: '#DB3022'}}>Buy</Button>
+                        </div>
+                     </div>
+                  </Col>
+               </Row>
+               {stateCart.isLoading && !stateCart.isError && (
+                  <div>Loading</div>
+               )}
 
-                    {isError && alertMsg && (
-                        <div>{alertMsg}</div>
-                    )}
-                </Container>
-            </div >
-        )
-    }
+               {stateCart.isError && stateCart.alertMsg && (
+                  <div>{stateCart.alertMsg}</div>
+               )}
+         </Container>
+      </div >
+  )
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    cart: state.cart
-})
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         getCart: () => dispatch(cartActions.getData)
-//     }
-// }
-
-const mapDispatchToProps = {
-    getCart: cartActions.getCart
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default Cart

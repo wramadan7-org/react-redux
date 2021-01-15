@@ -5,6 +5,7 @@ import {
     Row, Col,
     Button, Progress, Label
 } from 'reactstrap'
+import numeral from 'numeral'
 
 import imgSpatu1 from '../assets/images/spatu1.jpg'
 import imgSpatu2 from '../assets/images/spatu2.jpg'
@@ -20,10 +21,13 @@ import itemActions from '../redux/actions/item'
 
 class DetailProduct extends Component {
 
-    state = {
-        id: this.props.match.params.id,
-        size: 1,
-        qty: 1
+    constructor(props) {
+        super(props)
+        this.state = {
+            id: this.props.match.params.id,
+            size: 1,
+            qty: 1
+        }
     }
 
     addCart = (e) => {
@@ -84,7 +88,19 @@ class DetailProduct extends Component {
         // console.log('ok', this.props.auth)
         // this.props.auth
         let id = this.props.match.params.id
-        this.props.getDetail(id)
+        console.log('mount', this.state.id)
+        this.props.getDetail(this.state.id)
+    }
+
+    componentDidUpdate(prevProps, nowPorps) {
+        // this.props.match.params.id
+        console.log('prev',prevProps)
+        console.log('now', nowPorps)
+        console.log(this.props.match.params.id)
+        console.log('update', this.state.id)
+        if (this.state.id !== this.props.match.params.id) {
+            this.props.getDetail(this.props.match.params.id)
+        }
     }
 
 
@@ -101,15 +117,22 @@ class DetailProduct extends Component {
         return (
             <div>
                 <NavigationBar />
-                {!isLoading && !isError && dataItem !== 0 && (
+                {!isLoading && !isError && dataItem?.length !== 0 && (
                     <Container className="my-5">
 
                         <Row>
-                            <Col md={6} className="">
-                                <img className="mr-1 my-1" src={imgSpatu1} alt="star" />
-                                <img className="mr-1 my-1" src={imgSpatu2} alt="star" />
-                                <img className="mr-1 my-1" src={imgSpatu3} alt="star" />
-                                <img className="mr-1 my-1" src={imgSpatu4} alt="star" />
+                            <Col sm={12} md={5} xs={6} className="align-items-center">
+                                <div className="align-items-center justify-content-center">
+                                    <img className=" align-self-center" src={`${process.env.REACT_APP_BACKEND_URL}${dataItem.picture}`} style={{width: 378, height: 378}} alt="productImg" />
+                                </div>
+                                <div className="align-items-center justify-content-between d-flex" style={{width: 378}}>
+                                    <img className=" align-self-center" src={`${process.env.REACT_APP_BACKEND_URL}${dataItem.picture}`} style={{width: 65, height: 65}} alt="productImg" />
+                                    <img className=" align-self-center" src={`${process.env.REACT_APP_BACKEND_URL}${dataItem.picture}`} style={{width: 65, height: 65}} alt="productImg" />
+                                    <img className=" align-self-center" src={`${process.env.REACT_APP_BACKEND_URL}${dataItem.picture}`} style={{width: 65, height: 65}} alt="productImg" />
+                                    <img className=" align-self-center" src={`${process.env.REACT_APP_BACKEND_URL}${dataItem.picture}`} style={{width: 65, height: 65}} alt="productImg" />
+                                    <img className=" align-self-center" src={`${process.env.REACT_APP_BACKEND_URL}${dataItem.picture}`} style={{width: 65, height: 65}} alt="productImg" />
+                                </div>
+                                
                             </Col>
                             <Col className="">
                                 <div>
@@ -125,48 +148,71 @@ class DetailProduct extends Component {
                                     <h6 className="text-muted">(10)</h6>
                                 </div>
                                 <div className="my-4">
-                                    <h6 className="text-muted">Proce</h6>
-                                    <h3 className="font-weight-bold">{dataItem.price}</h3>
+                                    <h6 className="text-muted">Price</h6>
+                                    <h3 className="font-weight-bold">Rp {numeral(dataItem.price).format(0,0).toString().replace(',', '.')}</h3>
                                 </div>
                                 <div className="my-4">
                                     <h6 className="text-muted">Color</h6>
-                                    <div className="">
-                                        <Button className="black rounded-circle mr-2" style={{ height: 30 }}></Button>
-                                        <Button className="red rounded-circle mr-2" style={{ height: 30 }}></Button>
-                                        <Button className="blue rounded-circle mr-2" style={{ height: 30 }}></Button>
-                                        <Button className="green rounded-circle mr-2" style={{ height: 30 }}></Button>
+                                    <div className="d-flex justify-content-between" style={{width: 200}}>
+                                        <div className="align-items-center justify-content-center" style={{width: 36, height: 36}}>
+                                            <Button className="black rounded-circle mr-2" style={{ height: 36, width: 36, backgroundColor: 'black' }}></Button>
+                                        </div>
+
+                                        <div className="align-items-center justify-content-center" style={{width: 36, height: 36}}>
+                                            <Button className="red rounded-circle mr-2" style={{ height: 36, width: 36, backgroundColor: '#D84242' }}></Button>
+                                        </div>
+
+                                        <div className="align-items-center justify-content-center" style={{width: 36, height: 36}}>
+                                            <Button className="blue rounded-circle mr-2" style={{ height: 36, width: 36, backgroundColor: '#4290D8' }}></Button>
+                                        </div>
+
+                                        <div className="align-items-center justify-content-center" style={{width: 36, height: 36}}>
+                                            <Button className="green rounded-circle mr-2" style={{ height: 36, width: 36, backgroundColor: '#42D86C' }}></Button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="d-flex ">
                                     <div className="mr-5">
                                         <h6 className="text-muted">Size</h6>
-                                        <div className="align-items-center d-flex">
-                                            <Button disabled={buttonDisableSize} onClick={this.handleMinusSize} className=" mr-2" >-</Button>
-                                            <Label className="mr-2">{this.state.size}</Label>
-                                            <Button onClick={this.handlePlushSize} className=" mr-2" >+</Button>
+                                        <div className="align-items-center d-flex  justify-content-between" style={{width: 120}}>
+                                            <div className=" align-items-center justify-content-center" style={{width: 36, height: 36}}>
+                                                <Button disabled={buttonDisableSize} onClick={this.handleMinusSize} className="rounded-circle" style={{width: 36, height: 36, backgroundColor: 'lightgrey', color: 'white'}} >-</Button>
+                                            </div>
+                                            <div className="align-items-center justify-content-between">
+                                                <Label>{this.state.size}</Label>
+                                            </div>
+                                            <div className="align-items-center justify-content-center" style={{width: 36, height: 36}}>
+                                                <Button onClick={this.handlePlushSize} className="rounded-circle" style={{width: 36, height: 36, backgroundColor: 'white', color: 'black'}} >+</Button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
                                         <h6 className="text-muted">Qty</h6>
-                                        <div className="align-items-center d-flex">
-                                            <Button disabled={buttonDisableQty} onClick={this.handleMinusQty} className=" mr-2" >-</Button>
-                                            <Label className="mr-2">{this.state.qty}</Label>
-                                            <Button onClick={this.handlePlushQty} className=" mr-2" >+</Button>
+                                        <div className="align-items-center d-flex justify-content-between" style={{width: 120}}>
+                                            <div className="align-items-center justify-content-center">
+                                                <Button disabled={buttonDisableQty} onClick={this.handleMinusQty} className="rounded-circle" style={{width: 36, height: 36, backgroundColor: 'lightgrey', color: 'white'}} >-</Button>
+                                            </div>
+                                            <div className="align-items-center justify-content-center">
+                                                <Label>{this.state.qty}</Label>
+                                            </div>
+                                            <div className="align-items-center justify-content-center">
+                                                <Button onClick={this.handlePlushQty} className="rounded-circle" style={{width: 36, height: 36, backgroundColor: 'white', color: 'black'}} >+</Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="my-5 d-flex">
-                                    <div className="w-50 mr-2">
-                                        <Button block className="rounded-pill">Chat</Button>
+                                <div className="d-flex my-3 align-content-center justify-content-between" style={{width: 630, height: 48}}>
+                                    <div style={{width: 160, height: 48}}>
+                                        <Button block className="rounded-pill" style={{color: 'black', backgroundColor: 'white'}}>Chat</Button>
                                     </div>
-                                    <div className="w-50">
+                                    <div style={{width: 160, height: 48}}>
                                         {/* <Link to=""> */}
-                                        <Button onClick={this.addCart} block className="rounded-pill">Add bag</Button>
+                                        <Button onClick={this.addCart} block className="rounded-pill" style={{color: 'black', backgroundColor: 'white'}}>Add bag</Button>
                                         {/* </Link> */}
                                     </div>
-                                </div>
-                                <div>
-                                    <Button block className="rounded-pill">Buy Now</Button>
+                                    <div style={{width: 343, height: 48}}>
+                                        <Button block className="rounded-pill" style={{backgroundColor: '#DB3022'}}>Buy Now</Button>
+                                    </div>
                                 </div>
                             </Col>
                         </Row>
@@ -272,6 +318,11 @@ class DetailProduct extends Component {
                         </div>
                         < ListProduct />
                     </Container>
+                )}
+                {!isLoading && !isError && dataItem?.length === 0 && (
+                    <div className="vh-100 justify-content-center align-items-center">
+                        <h1>Don't have item</h1>
+                    </div>
                 )}
                 {isLoading && !isError && (
                     <div className="vh-100 justify-content-center align-items-center">

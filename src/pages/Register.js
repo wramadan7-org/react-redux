@@ -43,11 +43,11 @@ class Register extends Component {
                         <h6 className="font-weight-bolder">Please login with your account</h6>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <div className="" style={{ width: 100 }}>
-                            <Button block>Customer</Button>
+                        <div className="" style={{ width: 123, height: 48, backgroundColor: '#DB3022'  }}>
+                            <Button block style={{width: 123, height: 48, backgroundColor: '#DB3022', color: 'white'}}>Customer</Button>
                         </div>
-                        <div className="" style={{ width: 100 }}>
-                            <Button block>Seller</Button>
+                        <div className="border-left-0" style={{ width: 123, height: 48, backgroundColor: 'white' }}>
+                            <Button block style={{width: 123, height: 48, backgroundColor: 'white', color: 'grey'}}>Seller</Button>
                         </div>
                     </div>
                     <Form onSubmit={this.register} className="my-2">
@@ -61,13 +61,13 @@ class Register extends Component {
                             <Input onChange={this.onChangeText} name='password' id='password' type='password' placeholder="Password" />
                         </Col>
                         <Col>
-                            <Button block type='submit' className="rounded-pill">PRIMARY</Button>
+                            <Button block type='submit' className="rounded-pill" style={{width: 401, height: 48, color: 'white', backgroundColor: '#DB3022'}}>PRIMARY</Button>
                         </Col>
                     </Form>
                     <div className="d-flex justify-content-center my-3">
                         <p>Already have a Tokopedia account?</p>
-                        <Link to="/login">
-                            <p color="danger">Login</p>
+                        <Link to="/login" className="ml-2">
+                            <p style={{color: '#DB3022'}}>Login</p>
                         </Link>
                     </div>
                 </div>

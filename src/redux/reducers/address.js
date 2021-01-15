@@ -1,8 +1,10 @@
 const initialState = {
     dataAddress: [],
+    dataUpdateAddress: [],
     isLoading: '',
     isError: '',
-    alertMsg: ''
+    alertMsg: '',
+    success: false,
 }
 
 export default (state = initialState, action) => {
@@ -48,7 +50,30 @@ export default (state = initialState, action) => {
                 ...state,
                 isError: false,
                 isLoading: false,
-                dataAddress: action.payload.data.result
+                dataUpdateAddress: action.payload.data.result
+            }
+        }
+        case 'DELETE_ADDRESS_PENDING': {
+            return {
+                ...state,
+                isLoading: true,
+            }
+        }
+        case 'DELETE_ADDRESS_REJECTED': {
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+                alertMsg: 'Rejected',
+            }
+        }
+        case 'DELETE_ADDRESS_FULFILLED': {
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                alertMsg: action.payload.data.message,
+                success: action.payload.data.success,
             }
         }
         default: {

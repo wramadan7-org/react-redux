@@ -5,68 +5,90 @@ import {
     Input, Label, Button
 } from 'reactstrap'
 import imgLogo from '../assets/images/Logo.png'
+import profileLogo from '../assets/images/profil.png'
 import profileAction from '../redux/actions/profile'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 class FormProfile extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            email: '',
-            phone: '',
-            date: '',
-            image: '',
-            password: ''
+            name: this.props.profile.dataProfile.name,
+            email: this.props.profile.dataProfile.email,
+            phone: this.props.profile.dataProfile.phone,
+            birthdate: moment(this.props.profile.dataProfile.date).format('YYYY-MM-DD'),
+            image: this.props.profile.dataProfile.image,
+            // password: this.props.profile.dataProfile.password,
+            gender: this.props.profile.dataProfile.gender,
+            selectFile: null,
+            selectImg: null,
         }
+
+        // this.onImageChange = this.onImageChange.bind(this)
+        // console.log('props', props)
     }
-
-    //mengambil data dari props mengubah isi state dengan data props yg diterima kemudian dirender ulang
-    //componentWillReceiveProps(props) akan dijalankan ketka menerima props baru
-    componentWillReceiveProps(props) {
-        this.setState({
-            name: props.name,
-            email: props.email,
-            phone: props.phone,
-            date: props.date,
-            gender: props.gender,
-            image: props.image,
-            password: props.password
-        })
-        // console.log(this.state.name)
-    }
-
-    // componentDidMount() {
-    //     this.props.getProfile(this.props.auth.token)
-    // }
-
     onChangeText = (e) => {
         this.setState({ [e.target.name]: e.target.value })
-        console.log({ [e.target.name]: e.target.value })
+        // console.log({ [e.target.name]: e.target.value })
     }
 
     onChangeRadio = (e) => {
         this.setState({ gender: e.target.value })
-        console.log({ gender: e.target.value })
+        // console.log({ gender: e.target.value })
     }
 
-    submit = (e) => {
-        e.preventDefault()
-        const { name, email, phone, date, gender, password, image } = this.state
-        const data = {
-            name, email, phone, date, gender, image, password
-        }
-        this.props.updateProfile(this.props.auth.token, data)
-    }
+//    componentDidUpdate(prevProps, prevState) {
+//        console.log('form PrevPorps', prevProps)
+//        console.log('form prevSatte', prevState)
+//    }
 
+   onImageChange = event => {
+       console.log('target', event.target.files[0])
+       const reader = new FileReader();
+       reader.onload = () => {
+           if (reader.readyState === 2) {
+                this.setState({
+                    selectFile: reader.result
+                })
+           }
+       }
+       reader.readAsDataURL(event.target.files[0])
+       this.setState({
+           selectImg: event.target.files[0],
+           loaded: 0
+       })
+   }
+
+   submit = async (values) => {
+       
+       if (this.state.selectFile === null) {
+           const { name, email, phone, birthdate, gender } = values
+           const data = {
+               name, email, phone, birthdate, gender
+           }
+           // console.log('data',data)
+           await this.props.updateProfile(this.props.auth.token, data)
+           // console.log('ahahahah',this.props.updateProfile(this.props.auth.token, data))
+           await this.props.getProfile(this.props.auth.token)
+       } else {
+           const { name, email, phone, birthdate, gender } = values
+           const data = new FormData()
+           data.append('name', name)
+           data.append('email', email)
+           data.append('phone', phone)
+           data.append('birthdate', birthdate)
+           data.append('gender', gender)
+           data.append('photo', this.state.selectImg)
+           await this.props.updateProfileWithPhoto(this.props.auth.token, data)
+           await this.props.getProfile(this.props.auth.token)
+       }
+
+   }
     render() {
-        // const { dataProfile: user, isLoading, isError, alertMsg } = this.props.profile
-        // console.log(this.state.date)
-        // const date = this.state.date
-        // console.log(date)
-        // const day = new Date(date).getMonth
-        // console.log(day)
+        console.log('state', this.state.selectImg)
+        // console.log('ppp', new File())
         return (
             <div className=" w-100">
                 {/* <Col className=" mt-5 mb-5 w-100"> */}
@@ -78,7 +100,7 @@ class FormProfile extends Component {
                     <div className="border"></div>
                     <div className="d-flex my-5">
                         <Col lg={8} md={7} className="">
-                            <Form onSubmit={this.submit}>
+                            <Form onSubmit={() => this.submit(this.state)}>
                                 <FormGroup row>
                                     <Label for="forName" sm={4}>Name</Label>
                                     <Col sm={7}>
@@ -111,35 +133,37 @@ class FormProfile extends Component {
                                 <FormGroup row className="">
                                     <Label for="forBirth" sm={4}>Date of birth</Label>
                                     <Col sm={7} className="d-flex">
-                                        {/* <Input className="mr-2" type="select">
-                                            <option>1</option>
-                                            <option>2</option>
-                                        </Input>
-                                        <Input className="mr-2" type="select">
-                                            <option>Januari</option>
-                                        </Input>
-                                        <Input type="select">
-                                            <option>2000</option>
-                                        </Input> */}
-                                        <Input onChange={this.onChangeText} name="date" type="date" className="" value={this.state.date} />
+                                        <Input onChange={this.onChangeText} name="birthdate" type="text" className="" value={this.state.birthdate} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Label sm={4}></Label>
                                     <Col sm={7}>
-                                        <Button type="submit" className="rounded-pill">Save</Button>
+                                        <Button  type="submit" className="rounded-pill" style={{backgroundColor: '#DB3022', width: 100, height: 36}}>Save</Button>
                                     </Col>
                                 </FormGroup>
                             </Form>
 
                         </Col>
-                        <div className="justify-content-center border-left h-25  w-100">
-                            <div className="flex-column">
-                                <img src={imgLogo} />
-                                <Label className="bn btn-secndary ">
-                                    <span>Select file</span>
-                                    <Input type="file" accept=".jpg .png" />
-                                </Label>
+                        <div className="border-left" style={{height: 166}}>
+                            <div className="ml-3">
+                                <div style={{width: 166, height: 111}}>
+                                    <img 
+                                        className="rounded-circle align-items-center justify-content-center"
+                                        src={this.state.selectFile !== null 
+                                                ? this.state.selectFile
+                                                : this.state.image?.length > 0
+                                                    ? `${process.env.REACT_APP_BACKEND_URL}${this.state.image}`
+                                                    : profileLogo
+                                        }
+                                        style={{width: 110, height: 110}}
+                                    />
+                                </div>
+                                <div>
+                                    <Label className="">
+                                        <Input name="photo" type="file" accept="image/jpg, image/png" onChange={this.onImageChange} />
+                                    </Label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,12 +176,13 @@ class FormProfile extends Component {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    profile: state.profile
+    profile: state.profile,
 })
 
 const mapDispatchToProps = {
     getProfile: profileAction.getProfile,
-    updateProfile: profileAction.putProfile
+    updateProfile: profileAction.updateProfile,
+    updateProfileWithPhoto: profileAction.updatePhotoProfile,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormProfile)

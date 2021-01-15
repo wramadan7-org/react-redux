@@ -61,11 +61,11 @@ class Login extends Component {
                         <h6 className="font-weight-bold">Please login with your account</h6>
                     </div>
                     <div className="d-flex justify-content-center ">
-                        <div className="" style={{ width: 100 }}>
-                            <Button block>Customer</Button>
+                        <div className="" style={{ width: 123, height: 48, backgroundColor: '#DB3022'  }}>
+                            <Button block style={{width: 123, height: 48, backgroundColor: '#DB3022', color: 'white'}}>Customer</Button>
                         </div>
-                        <div className="border-left-0" style={{ width: 100 }}>
-                            <Button block>Seller</Button>
+                        <div className="border-left-0" style={{ width: 123, height: 48, backgroundColor: 'white' }}>
+                            <Button block style={{width: 123, height: 48, backgroundColor: 'white', color: 'grey'}}>Seller</Button>
                         </div>
                     </div>
                     <Form onSubmit={this.login} className="my-2">
@@ -77,17 +77,17 @@ class Login extends Component {
                         </Col>
                         <Col>
                             <Link>
-                                <p className="text-right">Forget password?</p>
+                                <p className="text-right" style={{color: '#DB3022'}}>Forget password?</p>
                             </Link>
                         </Col>
                         <Col>
-                            <Button block type='submit' className="rounded-pill">PRIMARY</Button>
+                            <Button block type='submit' className="rounded-pill" style={{width: 401, height: 48, color: 'white', backgroundColor: '#DB3022'}}>PRIMARY</Button>
                         </Col>
                     </Form>
                     <div className="d-flex justify-content-center my-3">
                         <p>Don't have a Tokopedia account?</p>
-                        <Link to="/register">
-                            <p color="danger">Register</p>
+                        <Link to="/register" className="ml-2">
+                            <p style={{color: '#DB3022'}}>Register</p>
                         </Link>
                     </div>
                 </div>

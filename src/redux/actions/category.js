@@ -9,6 +9,6 @@ export default {
 
     getDetail: (id) => ({
         type: 'GET_DETAIL_CATEGORY',
-        payload: http().get(`category/detail/${id}`)
+        payload: http().get(`public/category/detail/${id}`)
     })
 }

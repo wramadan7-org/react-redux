@@ -16,5 +16,9 @@ export default {
     putAddress: (token, data, id) => ({
         type: 'UPDATE_ADDRESS',
         payload: http(token).put(`customer/address/${id}`, qs.stringify(data))
+    }),
+    deleteAddress: (token, id) => ({
+        type: 'DELETE_ADDRESS',
+        payload: http(token).delete(`customer/address/${id}`)
     })
 }

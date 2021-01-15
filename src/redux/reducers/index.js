@@ -10,16 +10,18 @@ import cart from './cart'
 import profile from './profile'
 import address from './address'
 import register from './register'
+import checkout from './checkout'
 
 export default combineReducers({
-    episode,
-    item,
-    category,
-    detailCategory,
-    detailProduct,
-    cart,
-    auth,
-    profile,
-    address,
-    register
+  episode,
+  item,
+  category,
+  detailCategory,
+  detailProduct,
+  cart,
+  auth,
+  profile,
+  address,
+  register,
+  checkout,
 })

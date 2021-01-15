@@ -35,6 +35,7 @@ class NavigationBar extends Component {
 
     render() {
         const { isLogin } = this.props.auth
+        {console.log('prfile',`${process.env.REACT_APP_BACKEND_URL}${this.props.profile.dataProfile.image}`)}
         return (
             <Navbar color="light" light className="shadow" expand="md">
                 <Container>
@@ -74,7 +75,7 @@ class NavigationBar extends Component {
                                         </Link>
                                     </NavItem>
                                     <NavItem>
-                                        <Link to="/signup">
+                                        <Link to="/register">
                                             <Button className="rounded-pill">Signup</Button>
                                         </Link>
                                     </NavItem>
@@ -100,7 +101,18 @@ class NavigationBar extends Component {
 
                                     <NavItem>
                                         <Link to="/profile">
-                                            <img src={iconProfile} className="rounded-circle" alt="img" />
+                                            <div style={{width: 48, height: 32}} className="align-items-center justify-content-center">
+                                                <img 
+                                                    src={
+                                                        this.props.profile.dataProfile.image?.length > 0
+                                                        ? `${process.env.REACT_APP_BACKEND_URL}${this.props.profile.dataProfile.image}`
+                                                        : iconProfile
+                                                    } 
+                                                    className="rounded-circle" 
+                                                    alt="img" 
+                                                    style={{width: 32, height: 32}}
+                                                />
+                                            </div>
                                         </Link>
                                     </NavItem>
                                     <NavItem>

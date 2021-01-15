@@ -100,7 +100,7 @@ class FormAddress extends Component {
                                         </div>
                                     </Link>
                                 </Col>
-                                {!isLoading && !isError && dataAddress !== 0 && dataAddress.map(o => (
+                                {!isLoading && !isError && dataAddress?.length > 0 && dataAddress.map(o => (
                                     <Col lg={12} md={10} className="align-content-center border my-3">
                                         <div>
                                             <p className="font-weight-bold">{o.recepients_name}</p>
@@ -111,14 +111,6 @@ class FormAddress extends Component {
                                         </div>
                                     </Col>
                                 ))}
-                                {/* {!isLoading && !isError && dataAddress !== 0 && (
-
-                                    <Col lg={12} md={10} className="border my-3">
-                                        <div>
-                                            <p>{console.log(dataAddress)}</p>
-                                        </div>
-                                    </Col>
-                                )} */}
                             </Row>
                         </Container>
                     </div>
@@ -179,8 +171,8 @@ class FormAddress extends Component {
                             </Container>
                         </ModalBody>
                         <ModalFooter>
-                            <Button onClick={() => this.setState({ modal: false })}>Cancle</Button>
-                            <Button type="submit" >Save</Button>
+                            <Button onClick={() => this.setState({ modal: false })} style={{width: 160, height: 36, backgroundColor: 'white', color: 'grey'}}>Cancle</Button>
+                            <Button type="submit" style={{width: 160, height: 36, backgroundColor: '#DB3022', color: 'white'}}>Save</Button>
                         </ModalFooter>
                     </Form>
                 </Modal>
