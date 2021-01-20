@@ -28,6 +28,7 @@ class DetailProduct extends Component {
             size: 1,
             qty: 1
         }
+        console.log('props detail', this.props)
     }
 
     addCart = (e) => {

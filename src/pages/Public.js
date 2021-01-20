@@ -19,16 +19,29 @@ import {
 import { Link } from 'react-router-dom'
 
 const Public = () => {
+  const dispatch = useDispatch()
+
   const stateItem = useSelector(state => state.item)
   const stateCategory = useSelector(state => state.category)
 
-  const dispatch = useDispatch()
-  React.useEffect(() => {
-    dispatch(itemActions.getData())
-    dispatch(categoryActions.getData())
-  }, [])
+  const getData = async () => {
+    await dispatch(categoryActions.getData())  
+    await dispatch(itemActions.getData())
+  }
 
-  const { isLoadingItem, dataItem, isErrorItem, alertMsgItem } = stateItem
+  React.useEffect(() => {
+    getData()
+  }, [
+    stateCategory.dataAddCategory,
+    stateCategory.dataUpdateCategory,
+    stateCategory.dataDeleteCategory,
+    stateItem.dataAddItem,
+    stateItem.dataUpdateItem,
+    stateItem.dataDeleteItem,
+    
+  ])
+
+  const { isLoading, dataItem, isError, alertMsg } = stateItem
   const { isLoadingCategory, dataCategory, isErrorCategory, alertMsgCategory } = stateCategory
   const env = process.env.REACT_APP_BACKEND_URL
   return (
@@ -71,7 +84,7 @@ const Public = () => {
             <div className="my-5">
                 <h1>Category</h1>
                 <Row className="my-3">
-                    {!isLoadingCategory && !isErrorCategory && dataCategory?.length !== 0 && dataCategory.map(i => (
+                    {!isLoadingCategory && !isErrorCategory && dataCategory?.length > 0 && dataCategory.map(i => (
                         <Col md={3} lg={2} key={i.id_category}>
                             <Link to={'/category/detail/' + i.id_category}>
                                 <Card color="" className="shadow my-3 justify-content-between" style={{ height: 220, width: 170 }}>
@@ -89,10 +102,10 @@ const Public = () => {
             <div className="mt-5">
                 <h1>New</h1>
                 <Row className="my-3">
-                    {!isLoadingItem && !isErrorItem && dataItem?.length !== 0 && dataItem.map(o => (
+                    {!isLoading && !isError && dataItem?.length > 0 && dataItem.map(o => (
                         <Col md={4} sm={6} lg={3} xs={6} key={o.id_item}>
                             <Link to={'/product/detail/' + o.id_item}>
-                                <Card className="cardProduct shadow justify-content-between mt-3" style={{ height: 350 }}>
+                                <Card className="cardProduct shadow justify-content-between mt-3" style={{ height: 400 }}>
                                     <CardImg className="align-items-center" src={`${env}${o.picture}`} />
                                     <CardBody className="align-items-sm-start">
                                         <CardTitle className="font-weight-bolder text-dark">{o.name}</CardTitle>
@@ -109,14 +122,14 @@ const Public = () => {
                 <div>Loading</div>
             )}
             {isErrorCategory && alertMsgCategory && (
-                <div>{alertMsgItem}</div>
+                <div>{alertMsg}</div>
             )}
 
-            {isLoadingItem && !isErrorItem && (
+            {isLoading && !isError && (
                 <div>Loading</div>
             )}
-            {isErrorItem && alertMsgItem && (
-                <div>{alertMsgItem}</div>
+            {isError && alertMsg && (
+                <div>{alertMsg}</div>
             )}
         </Container>
     </>

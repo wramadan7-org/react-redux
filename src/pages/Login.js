@@ -23,6 +23,7 @@ class Login extends Component {
             password
         }
         this.props.login(data)
+        this.alerting()
     }
 
     onChangeText = (e) => {
@@ -30,12 +31,23 @@ class Login extends Component {
         console.log({ [e.target.name]: e.target.value })
     }
 
+    alerting = () => {
+        const s = this.props.location.state?.color
+        console.log('s', s)
+    }
+
     componentDidUpdate() {
         // console.log(this.props.location.state.from.pathname)
         // console.log(this.props.auth)
+        // console.log(this.props.location)
         if (this.props.auth.token) {
             this.props.history.push('/profile')
         }
+        // if (this.props.location.state !== undefined) {
+        //     <Alert color={this.props.location.state.color}>
+        //         {this.props.location.state.alert}
+        //     </Alert>
+        // }
     }
 
     render() {
